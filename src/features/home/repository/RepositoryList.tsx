@@ -68,7 +68,7 @@ export const RepositoryList = () => {
   const showInfinite = called && queryClientResult?.clientState.login && data?.user?.repositories?.edges?.length;
 
   useEffect(() => {
-    if (queryClientResult?.clientState?.login) {
+    if (queryClientResult?.clientState?.login && queryClientResult?.clientState?.login) {
       loadRepositories({
         variables: {
           login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
@@ -78,7 +78,7 @@ export const RepositoryList = () => {
         }
       });
     }
-  }, [loadRepositories, queryClientResult])
+  }, [loadRepositories, queryClientResult?.clientState?.login, queryClientResult?.clientState?.selectedLogin])
 
   if (error) {
     return <Text>There seems to be a problem, please try to repeat your operation.</Text>;
@@ -89,7 +89,7 @@ export const RepositoryList = () => {
       columns={
         <Grid
           css={{
-            gridTemplateColumns: 'minmax(8rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
+            gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
             '@sm': {
               gridTemplateColumns: 'minmax(12rem, 1fr) minmax(6rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
             },
@@ -102,9 +102,9 @@ export const RepositoryList = () => {
             width: '100%',
             gap: '1rem',
           }}>
-          <Text variant="headings-title-default-bold" css={{ wordBreak: 'break-all' }}>Name</Text>
-          <Text variant="headings-title-default-bold">Rating 👀</Text>
-          <Text variant="headings-title-default-bold">Watchers ⭐</Text>
+          <Text variant="headings-title-default-bold">Name</Text>
+          <Text variant="headings-title-default-bold">Rating</Text>
+          <Text variant="headings-title-default-bold">Watchers</Text>
         </Grid>
       }
       infinitePagination={
@@ -114,7 +114,7 @@ export const RepositoryList = () => {
             items={data?.user?.repositories?.edges}
             isNextPageLoading={loading}
             RowTemplate={RepositoryItem}
-            loadNextPage={
+            loadNextPage={() => {
               fetchMore({
                 variables: {
                   after: data?.user?.repositories?.pageInfo?.endCursor,
@@ -125,9 +125,10 @@ export const RepositoryList = () => {
                 }
               })
             }
+            }
           /> : <>
-            {!loading && !data && <OptimisticContainer message="You have not selected any profile yet." />}
-            {loading && <LoadingContainer />}
+            {(!showInfinite || (!loading && !data)) && <OptimisticContainer message="You have not selected any profile yet." />}
+            {loading && <LoadingContainer repeat={8} />}
           </>
           }
         </>
@@ -136,7 +137,7 @@ export const RepositoryList = () => {
         <Flex css={{ gap: '0.25rem' }}>
           <Text variant="headings-title-default-bold">Total repositories</Text>
           <Text variant="headings-title-default-bold" css={{ fontWeight: '$regular' }}>
-            {data?.user?.repositories?.totalCount}
+            {showInfinite && data?.user?.repositories?.totalCount}
           </Text>
         </Flex>
       }

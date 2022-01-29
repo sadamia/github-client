@@ -1,4 +1,5 @@
 import { ellipsis } from "polished";
+import { CSSProperties } from "react";
 import { clientStateVar } from "../../../cache";
 import Button from "../../../components/button";
 import Flex from "../../../components/flex/Flex";
@@ -6,7 +7,7 @@ import Grid from "../../../components/grid";
 import { Text } from "../../../components/text/Text";
 import { Maybe, RepositoryEdge } from "../../../generated/graphql";
 
-export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Maybe<RepositoryEdge>, style: any }) => {
+export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Maybe<RepositoryEdge>, style: CSSProperties }) => {
   const mutate = (repository?: string, ownerLogin?: string, repositoryId?: string) => {
     clientStateVar({
       ...clientStateVar(),

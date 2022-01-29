@@ -4,6 +4,7 @@ import Input from '../input';
 import Grid from '../grid'
 import Flex from '../flex/Flex';
 import { Text } from '../text/Text'
+import { ErrorOption } from 'react-hook-form';
 
 const Wrapper = styled(Grid, {
   gridTemplateAreas: '"labelText" "input" "error"',
@@ -16,7 +17,7 @@ type TextFieldVariants = VariantProps<typeof Wrapper> &
 {
   letterCount?: number,
   labelText?: string,
-  error?: any;
+  error?: ErrorOption;
   value?: string,
   placeholder?: string,
   type?: string,
@@ -49,7 +50,6 @@ export const TextField = React.forwardRef<
           type={props.type || 'text'}
           css={{ marginBottom: '2px' }}
         />
-
         {props.error &&
           <Text
             variant="functional-error"

@@ -1,5 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 import { ellipsis } from "polished";
+import { CSSProperties } from "react";
 import { clientStateVar } from "../../../cache";
 import Button from "../../../components/button";
 import Flex from "../../../components/flex/Flex";
@@ -7,7 +8,9 @@ import Grid from "../../../components/grid";
 import { Text } from "../../../components/text/Text";
 import { Maybe, IssueEdge } from "../../../generated/graphql";
 
-export const IssueItem = ({ index, edge, style }: { index: number, edge: Maybe<IssueEdge>, style: any }) => {
+export const IssueItem = ({ index, edge, style }:
+  { index: number, edge: Maybe<IssueEdge>, style: CSSProperties }
+) => {
 
   const mutate = (ownerLogin?: string) => {
     clientStateVar({
@@ -60,6 +63,7 @@ export const IssueItem = ({ index, edge, style }: { index: number, edge: Maybe<I
             css={{
               ...ellipsis(120),
               textAlign: 'left',
+              padding: 0,
             }}
           >
             @{edge?.node?.author?.login}

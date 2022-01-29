@@ -92,7 +92,7 @@ type TextAreaProps =
     validation?: any
     name?: string
     size?: any, 
-    value?: any, 
+    value?: string, 
     placeholder?: string
     rows?: number
   };

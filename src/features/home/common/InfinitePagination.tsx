@@ -1,5 +1,7 @@
+import { CSSProperties } from "react";
 import { FixedSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
+import { LoadingContainer } from "./LoadingContainer";
 
 export default function InfinitePagination({
   hasNextPage,
@@ -7,14 +9,14 @@ export default function InfinitePagination({
   loadNextPage,
   RowTemplate,
   isNextPageLoading
-}: { hasNextPage: boolean, items: any, loadNextPage: any, RowTemplate: any, isNextPageLoading: boolean }) {
+}: { hasNextPage: boolean, items: any, loadNextPage: () => void, RowTemplate: any, isNextPageLoading: boolean }) {
 
-  const isItemLoaded = (index: number): boolean => !hasNextPage || index < items.length;
+  const isItemLoaded = (index: number): boolean => index < items.length;
 
-  const Item = ({ index, style }: { index: number, style: any }) => {
+  const Item = ({ index, style }: { index: number, style: CSSProperties }) => {
     if (!isItemLoaded(index)) {
-      return <p>Loading...</p>;
-    }
+      return <div style={style}><LoadingContainer repeat={1} /></div>;
+    } 
     const edge = items && items[index];
 
     return <RowTemplate edge={edge} index={index} style={style} />;
@@ -24,9 +26,9 @@ export default function InfinitePagination({
   if (!items) {
     return <p>No data</p>;
   }
-  const loadMoreItems = isNextPageLoading ? () => void 0 : loadNextPage;
-
-  const itemsCount = items.length;
+  const loadMoreItems = isNextPageLoading ? () => void 0: loadNextPage;
+  
+  const itemsCount = hasNextPage ? items.length+1 : items.length;
 
   return (
     <InfiniteLoader

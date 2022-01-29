@@ -4,8 +4,9 @@ import { useForm } from "react-hook-form";
 import { clientStateVar } from "../../../cache";
 import Button from "../../../components/button";
 import Flex from "../../../components/flex/Flex";
-import { SearchInput } from "../../../components/input/SearchInput";
+import { SearchInput } from "./SearchInput";
 import { GET_SELECTED_LOGIN } from "../graphql/GET_SELECTED_LOGIN";
+import { clearClientStateVar } from "../graphql/mutations";
 
 
 const SearchUsers = ({ gridArea }: { gridArea: string }) => {
@@ -14,15 +15,14 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     getValues,
     formState: { isValid },
     handleSubmit,
-    setValue
-  } = useForm({ mode: 'onChange' });
+    setValue,
+    control
+  } = useForm<{ search: string }>({ mode: 'all' });
 
   const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
 
   useEffect(() => {
-    if (queryClientResult?.clientState.login) {
-      setValue('search', queryClientResult?.clientState?.login);
-    }
+    setValue('search', queryClientResult?.clientState?.login);
   }, [setValue, queryClientResult?.clientState?.login])
 
   const onSearchHandler = () => {
@@ -35,9 +35,13 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     });
   }
 
+  const clearClientState = () => {
+    clearClientStateVar();
+    setValue('search', '');
+  }
   return (
     <Flex css={{ 
-      position: 'fixed',
+      position: 'sticky',
       zIndex: '$1',
       width: '100%',
       background: 'white',
@@ -50,14 +54,16 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     }}>
       <form onSubmit={handleSubmit(onSearchHandler)}>
         <Flex css={{
-          gap: '0.5rem'
+          gap: '0.5rem',
         }}>
           <SearchInput
             role="search"
-            placeholder='Search users...'
+            placeholder='Search users'
             validation={register("search", {
               required: true
             })}
+            clearClientState={clearClientState}
+            control={control}
           />
           <Button
             role="submit"

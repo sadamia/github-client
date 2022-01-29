@@ -10,11 +10,15 @@ export const OptimisticContainer = ({ message }: { message: string }) => {
       minHeight: `${55 * 10}px`,
     }}>
       <Flex justify="center" css={{
-        padding: '3rem',
+        padding: '1rem',
         background: '#e2e8f0',
         fontSize: '14px',
         borderRadius: '4px',
-        minWidth: '280px',
+        minWidth: '260px',
+        '@sm': {
+          minWidth: '280px',
+          padding: '3rem',
+        }
       }}>
         <Text variant="body-default">{message}</Text>
       </Flex>

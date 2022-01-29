@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { Text } from "../../../components/text/Text"
 import Button from "../../../components/button";
@@ -31,7 +31,7 @@ const GET_USER_BY_ID = gql`
   }
 `;
 
-const OptimisticContainer = (props: any) => {
+const OptimisticContainer = ({ css, children }: { css?: any, children: React.ReactNode}) => {
   return (
     <Flex direction="column" align="center" justify="center" css={{
       gap: '0.5rem',
@@ -41,9 +41,9 @@ const OptimisticContainer = (props: any) => {
       width: '100%',
       minHeight: '230px',
       minWidth: '160px',
-      ...props.css
+      ...css
     }}>
-      {props.children}
+      {children}
     </Flex>
   )
 }
@@ -89,13 +89,13 @@ const EmptyProfilesList = () => {
         <Button
           variant="link"
           size="compact"
-          onClick={() => mutate('@kent')}
+          onClick={() => mutate('@kentcdodds')}
           css={{
             padding: '0 0.125rem',
             lineHeight: '$shorter',
           }}
         >
-          @kent
+          @kentcdodds
         </Button>
         <Text variant="body-sm"> for exact profile matches.</Text>
       </Box>
@@ -123,7 +123,7 @@ const ProfilesList = () => {
     </OptimisticContainer>;
   }
 
-  if (!data) {
+  if (!data || !queryClientResult?.clientState.login) {
     return <EmptyProfilesList />;
   }
 
@@ -142,13 +142,13 @@ const ProfilesList = () => {
         maxHeight: `${230 * 3}px`,
       }
     }}>
-      {data?.search.edges?.map((item, index) => (
+      {queryClientResult?.clientState.login && data?.search.edges?.map((item, index) => (
         <Profile
           key={index}
           item={(item?.node as Maybe<User>)}
         />
       ))}
-      {data?.search?.pageInfo.hasNextPage &&
+      {queryClientResult?.clientState.login && data?.search?.pageInfo.hasNextPage &&
         <Flex
           direction="column"
           align="center"

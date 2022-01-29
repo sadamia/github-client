@@ -9,7 +9,6 @@ import SearchProfiles from './searchProfiles/SearchProfiles';
 const Section = ({ text, sectionList, gridArea }: { text: String, sectionList: React.ReactElement, gridArea: string }) => {
   return (
     <Flex direction="column" css={{
-      pt: '2rem',
       gap: '1rem',
       gridArea: gridArea,
     }}>

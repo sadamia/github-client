@@ -88,7 +88,7 @@ export type InputOwnProps = InputCSSProp & InputVariants &
   value?: string
   placeholder?: string
   validation?: any
-  type?: any,
+  type?: string,
   role?: string, 
 };
 

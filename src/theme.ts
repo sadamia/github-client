@@ -94,69 +94,63 @@ export const stitches = createStitches({
     },
   },
   utils: {
-    m: (value: any) => ({
+    m: (value: Stitches.PropertyValue<'margin'>) => ({
+      margin: value,
+    }),
+    mt: (value: Stitches.PropertyValue<'marginTop'>) => ({
       marginTop: value,
+    }),
+    mr: (value: Stitches.PropertyValue<'marginRight'>) => ({
+      marginRight: value,
+    }),
+    mb: (value: Stitches.PropertyValue<'marginBottom'>) => ({
       marginBottom: value,
+    }),
+    ml: (value: Stitches.PropertyValue<'marginLeft'>) => ({
+      marginLeft: value,
+    }),
+    mx: (value: Stitches.PropertyValue<'marginLeft'>) => ({
       marginLeft: value,
       marginRight: value,
     }),
-    mt: (value: any) => ({
-      marginTop: value,
-    }),
-    mr: (value: any) => ({
-      marginRight: value,
-    }),
-    mb: (value: any) => ({
-      marginBottom: value,
-    }),
-    ml: (value: any) => ({
-      marginLeft: value,
-    }),
-    mx: (value: any) => ({
-      marginLeft: value,
-      marginRight: value,
-    }),
-    my: (value: any) => ({
+    my: (value: Stitches.PropertyValue<'marginTop'>) => ({
       marginTop: value,
       marginBottom: value,
     }),
-    px: (value: any) => ({
+    px: (value: Stitches.PropertyValue<'paddingLeft'>) => ({
       paddingLeft: value,
       paddingRight: value,
     }),
-    py: (value: any) => ({
+    py: (value: Stitches.PropertyValue<'paddingTop'>) => ({
       paddingTop: value,
       paddingBottom: value,
     }),
-    p: (value: any) => ({
+    p: (value: Stitches.PropertyValue<'padding'>) => ({
+      padding: value,
+    }),
+    pt: (value: Stitches.PropertyValue<'paddingTop'>) => ({
       paddingTop: value,
-      paddingBottom: value,
-      paddingLeft: value,
+    }),
+    pr: (value: Stitches.PropertyValue<'paddingRight'>) => ({
       paddingRight: value,
     }),
-    pt: (value: any) => ({
-      paddingTop: value,
-    }),
-    pr: (value: any) => ({
-      paddingRight: value,
-    }),
-    pb: (value: any) => ({
+    pb: (value: Stitches.PropertyValue<'paddingBottom'>) => ({
       paddingBottom: value,
     }),
-    pl: (value: any) => ({
+    pl: (value: Stitches.PropertyValue<'paddingLeft'>) => ({
       paddingLeft: value,
     }),
-    size: (value: any) => ({
+    size: (value: Stitches.PropertyValue<'width'>) => ({
       width: value,
       height: value,
     }),
     linearGradient: (value: any) => ({
       backgroundImage: `linear-gradient({value})`,
     }),
-    br: (value: any) => ({
+    br: (value: Stitches.PropertyValue<'borderRadius'>) => ({
       borderRadius: value,
     }),
-    fullWidth: (value: any) => ({
+    fullWidth: () => ({
       width: "100vw",
       position: "relative",
       left: "50%",

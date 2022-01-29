@@ -110,7 +110,7 @@ export const IssuesList = () => {
             items={data?.repository?.issues?.edges}
             RowTemplate={IssueItem}
             isNextPageLoading={loading}
-            loadNextPage={
+            loadNextPage={() => {
               fetchMore({
                 variables: {
                   repository: queryClientResult?.clientState?.repository,
@@ -122,9 +122,10 @@ export const IssuesList = () => {
                 }
               })
             }
+            }
           /> : <>
-            {!loading && !data && <OptimisticContainer message="You have not selected any repository yet." />}
-            {loading && <LoadingContainer />}
+            {(!queryClientResult?.clientState?.login || (!loading && !data)) && <OptimisticContainer message="You have not selected any repository yet." />}
+            {loading && <LoadingContainer repeat={8} />}
           </>}
         </>
       }
@@ -134,7 +135,7 @@ export const IssuesList = () => {
             Total issues
           </Text>
           <Text variant="headings-title-default-bold" css={{ fontWeight: '$regular' }}>
-            {data?.repository?.issues?.totalCount}
+            {queryClientResult?.clientState?.login && data?.repository?.issues?.totalCount}
           </Text>
         </Flex>
       }
