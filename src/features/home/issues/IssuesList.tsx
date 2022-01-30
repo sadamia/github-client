@@ -12,6 +12,7 @@ import { IssueItem } from "./IssueItem";
 import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
+import Box from "../../../components/box";
 
 const ISSUES_BY_REPO_AND_OWNER = gql`
 query GetIssues($repository: String!, $owner: String!, $cursor: String, $first: Int!, $createdate: String!, $direction: String!) {
@@ -81,27 +82,34 @@ export const IssuesList = () => {
   return (
     <ListWrapper
       columns={
-        <Grid
-          css={{
-            gridTemplateColumns: 'minmax(5rem, 1fr) minmax(auto, 1fr)',
-            '@sm': {
-              gridTemplateColumns: 'minmax(12rem, 1fr) minmax(auto, 1fr)',
-            },
-            width: '100%',
-            gap: '1rem',
-          }}>
-          <Text variant="headings-title-default-bold" css={{ wordBreak: 'break-all' }}>Title</Text>
-          <Flex justify="end">
-            <NewIssueDialog>
-              <Button
-                size="default" 
-                variant="secondary" 
-                leftPart={<PlusIcon />}
-                isDisabled={!queryClientResult?.clientState?.repository}
-              >New Issue</Button>
-            </NewIssueDialog>
-          </Flex>
-        </Grid>
+        <Flex direction="column" css={{ gap: '1rem', width: '$full' }}>
+          <Text variant="headings-title-lg-bold-capitalized" css={{ fontWeight: 200 }}>Issues</Text>
+          <Grid
+            css={{
+              gridTemplateColumns: 'calc(100% - 8rem) 7rem',
+
+              '@sm': {
+                gridTemplateColumns: 'calc(100% - 11rem) 10rem',
+              },
+              '@md': {
+                gridTemplateColumns: 'calc(100% - 10rem) minmax(auto, 1fr)',
+              },
+              width: '100%',
+              gap: '1rem',
+            }}>
+            <Text variant="headings-title-default-bold" css={{ wordBreak: 'break-all' }}>Title</Text>
+            <Flex justify="end">
+              <NewIssueDialog>
+                <Button
+                  size="default" 
+                  variant="secondary" 
+                  leftPart={<PlusIcon />}
+                  isDisabled={!queryClientResult?.clientState?.repository}
+                >New Issue</Button>
+              </NewIssueDialog>
+            </Flex>
+          </Grid>
+        </Flex>
       }
       infinitePagination={
         <>

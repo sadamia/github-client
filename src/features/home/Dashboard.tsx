@@ -11,8 +11,9 @@ const Section = ({ text, sectionList, gridArea }: { text: String, sectionList: R
     <Flex direction="column" css={{
       gap: '1rem',
       gridArea: gridArea,
+      overflow: 'hidden'
     }}>
-      <Text variant="headings-title-lg-bold-capitalized">{text}</Text>
+      {/* <Text variant="headings-title-lg-bold-capitalized">{text}</Text> */}
       <Flex css={{
         maxWidth: 'calc(100vw - 2.5rem)',
         '@xl': {
@@ -29,7 +30,7 @@ const Dashboard = () => {
     <Flex direction="column" css={{
       minWidth: '280px',
       alignItems: 'center',
-      padding: '1rem',
+      padding: '1rem 3rem',
       maxWidth: '1024px',
       margin: '0 auto',
     }}>

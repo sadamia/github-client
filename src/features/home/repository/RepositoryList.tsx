@@ -87,25 +87,28 @@ export const RepositoryList = () => {
   return (
     <ListWrapper
       columns={
-        <Grid
-          css={{
-            gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
-            '@sm': {
-              gridTemplateColumns: 'minmax(12rem, 1fr) minmax(6rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
-            },
-            '@md': {
-              gridTemplateColumns: 'minmax(12rem, 1fr) minmax(6rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)',
-            },
-            '@lg': {
-              gridTemplateColumns: 'minmax(12rem, 1fr) minmax(12rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)',
-            },
-            width: '100%',
-            gap: '1rem',
-          }}>
-          <Text variant="headings-title-default-bold">Name</Text>
-          <Text variant="headings-title-default-bold">Rating</Text>
-          <Text variant="headings-title-default-bold">Watchers</Text>
-        </Grid>
+        <Flex direction="column" css={{ gap: '1rem' }}>
+          <Text variant="headings-title-lg-bold-capitalized" css={{ fontWeight: 200 }}>Repositories</Text>
+          <Grid
+            css={{
+              gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
+              '@sm': {
+                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
+              },
+              '@md': {
+                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)',
+              },
+              '@lg': {
+                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)',
+              },
+              width: '100%',
+              gap: '1rem',
+            }}>
+            <Text variant="headings-title-default-bold">Name</Text>
+            <Text variant="headings-title-default-bold">Rating</Text>
+            <Text variant="headings-title-default-bold">Watchers</Text>
+          </Grid>
+        </Flex>
       }
       infinitePagination={
         <>

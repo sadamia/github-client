@@ -37,13 +37,13 @@ export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Ma
         gap: '1rem',
         gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
         '@sm': {
-          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(6rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
+          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
         },
         '@md': {
-          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(6rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)',
+          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)',
         },
         '@lg': {
-          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(12rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)',
+          gridTemplateColumns: 'minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)',
         },
         '& .profile-btn': {
           display: 'none',
