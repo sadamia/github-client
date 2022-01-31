@@ -99,7 +99,7 @@ export const RepositoryList = () => {
                 fontWeight: 200,
                 fontSize: '$lg',
                 '@sm': {
-                  fontSize: 'inherit'
+                  fontSize: '1.625rem',
                 },
               }}
             >Repositories</Text>
