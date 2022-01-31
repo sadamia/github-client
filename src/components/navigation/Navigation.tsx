@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '../../theme';
 import Box from '../box/Box';
 import Grid from '../grid/Grid';
@@ -48,9 +47,7 @@ const Navigation = () => {
             gridTemplateAreas:'"logo nav"',
             gridTemplateColumns: 'min-content 1fr'
           }}>
-            <RouterLink to="/">
-              Aleksandre Adamia
-            </RouterLink>
+            Aleksandre Adamia
           </Grid>
         </Container>
       </Nav>
