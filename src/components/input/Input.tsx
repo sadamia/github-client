@@ -45,8 +45,7 @@ const StyledInput = styled(DEFAULT_TAG, {
     boxShadow: "none",
   },
   '&::placeholder': {
-    color: '#A3ACB8',
-    fontSize: '1rem'
+    fontSize: "$sm",
   },
   '&:disabled': {
     backgroundColor: "white",

@@ -62,8 +62,6 @@ const StyledButtonIcon = styled(DEFAULT_TAG, {
 });
 
 
-export const ButtonIcon = React.forwardRef<
-  React.ElementRef<typeof StyledButtonIcon>, ButtonIconOwnProps>(
-    (props, forwardedRef) => {
-      return <StyledButtonIcon {...props} ref={forwardedRef} />;
-    });
+export const ButtonIcon = (props: ButtonIconOwnProps) => {
+  return <StyledButtonIcon {...props} />;
+};

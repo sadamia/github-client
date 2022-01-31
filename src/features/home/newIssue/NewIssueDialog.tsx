@@ -56,7 +56,12 @@ const GET_SELECTED_REPOSITORY = gql`
 
 export const NewIssueDialog = (props: Props) => {
   const [open, setOpen] = useState(false)
-  const methods = useForm({
+  const {
+    reset,
+    formState: { isValid, errors },
+    getValues,
+    register,
+  } = useForm({
     mode: 'onChange',
     resolver: yupResolver(newIssueSchema),
   });
@@ -67,8 +72,8 @@ export const NewIssueDialog = (props: Props) => {
 
   const onOpenChange = useCallback((open: boolean) => {
     setOpen(open)
-    methods.reset()
-  }, [methods])
+    reset()
+  }, [reset])
 
   const [addIssue, { loading, error }] = useMutation(CREATE_ISSUE, {
     refetchQueries: ['GetIssues']
@@ -80,12 +85,12 @@ export const NewIssueDialog = (props: Props) => {
     addIssue({
       variables: {
         repositoryId: queryClientResult?.clientState?.repositoryId,
-        title: methods.getValues('title'),
-        body: methods.getValues('body'),
+        title: getValues('title'),
+        body: getValues('body'),
       }
     })
     setOpen(false);
-  }, [addIssue, methods, queryClientResult?.clientState?.repositoryId])
+  }, [addIssue, getValues, queryClientResult?.clientState?.repositoryId])
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -106,14 +111,13 @@ export const NewIssueDialog = (props: Props) => {
 
         <DialogBody css={{
           overflow: 'scroll',
-          height: 'calc(100vh - 144px)',
+          height: 'min-content',
         }}>
           <Grid css={{
             rowGap: '2rem',
             width: '$full',
             scrollBehavior: 'smooth',
             padding: '1rem 1rem 20px 1rem',
-            height: 'min-content',
             '@sm': {
               padding: '1rem 2rem 20px 2rem',
             }
@@ -124,17 +128,19 @@ export const NewIssueDialog = (props: Props) => {
             }}>
               <TextField
                 name="title"
+                placeholder="Title"
                 labelText="Title"
-                validation={methods.register("title")}
-                error={methods.formState.errors.title}
+                validation={register("title")}
+                error={errors.title}
               />
 
               <TextAreaField
                 rows={5}
                 name="body"
+                placeholder="Leave a comment"
                 labelText="Submit new issue"
-                validation={methods.register("body")}
-                error={methods.formState.errors.body}
+                validation={register("body")}
+                error={errors.body}
               />
               <Center>
                 <Text>{error}</Text>
@@ -144,25 +150,27 @@ export const NewIssueDialog = (props: Props) => {
         </DialogBody>
 
         <DialogFooter>
-          <Button
-            onClick={cancelHander}
-            variant="secondary"
-            full
-            size={{
-              '@initial': 'compact',
-              '@sm': 'default'
-            }}
-          >Cancel</Button>
-          <Button
-            onClick={save}
-            variant="primary"
-            full
-            size={{
-              '@initial': 'compact',
-              '@sm': 'default'
-            }}
-            isDisabled={!methods.formState.isValid}
-          >{loading ? 'Loading' : 'Save'}</Button>
+          <Flex>
+            <Button
+              onClick={cancelHander}
+              variant="secondary"
+              full
+              size={{
+                '@initial': 'compact',
+                '@sm': 'default'
+              }}
+            >Cancel</Button>
+            <Button
+              onClick={save}
+              variant="primary"
+              full
+              size={{
+                '@initial': 'compact',
+                '@sm': 'default'
+              }}
+              isDisabled={!isValid}
+            >{loading ? 'Loading' : 'Save'}</Button>
+          </Flex>
         </DialogFooter>
 
       </DialogContent>

@@ -13,9 +13,7 @@ type SearchInputProps = InputOwnProps & {
   }, object>
 };
 
-export const SearchInput = React.forwardRef<
-  React.ElementRef<typeof Input>, SearchInputProps
->((props, forwardedRef) => {
+export const SearchInput = (props: SearchInputProps) => {
 
   const search = useWatch({
     control: props.control,
@@ -83,4 +81,4 @@ export const SearchInput = React.forwardRef<
       </Flex>}
     </Flex>
   );
-});
+};

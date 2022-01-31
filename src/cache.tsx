@@ -35,6 +35,7 @@ export interface ClientState {
   repository?: string,
   owner?: string,
   repositoryId?: string,
+  avatarUrl?: string,
 }
 
 const clientInitialValue: ClientState = {
@@ -42,7 +43,7 @@ const clientInitialValue: ClientState = {
   selectedLogin: undefined,
   repository: undefined,
   owner: undefined,
-  repositoryId: undefined
+  avatarUrl: undefined
 }
 
 export const clientStateVar: ReactiveVar<ClientState> = makeVar<ClientState>(

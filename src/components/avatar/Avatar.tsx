@@ -13,7 +13,7 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
   display: 'flex',
   flexShrink: 0,
   position: 'relative',
-  border: 'none',
+  // border: 'none',
   fontFamily: '$primary',
   lineHeight: '1',
   margin: '0',
@@ -23,6 +23,7 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
   color: 'black',
   borderRadius: '$round',
   background: '#646464',
+  border: '1px solid #646464',
 
   '&::before': {
     content: '""',
@@ -37,6 +38,10 @@ const StyledAvatar = styled(AvatarPrimitive.Root, {
 
   variants: {
     size: {
+      'xs': {
+        width: '1.5rem',
+        height: '1.5rem',
+      },
       'small': {
         width: '2.5rem',
         height: '2.5rem',

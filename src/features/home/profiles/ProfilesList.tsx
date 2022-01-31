@@ -5,31 +5,10 @@ import Button from "../../../components/button";
 import { Profile } from "./Profile"
 import { Maybe, Query, User } from "../../../generated/graphql"
 import Flex from "../../../components/flex/Flex";
-import { GET_SELECTED_LOGIN } from "../graphql/GET_SELECTED_LOGIN";
+import { GET_LOGIN } from "../graphql/GET_LOGIN";
 import { clientStateVar } from "../../../cache";
 import Box from "../../../components/box";
-
-const GET_USER_BY_ID = gql`
-  query GetUserByLogin($login: String!, $cursor: String) { 
-    search(query: $login, type: USER, first: 10, after: $cursor){
-      userCount
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-      edges {
-        node {
-          ... on User {
-            id
-            name
-            login
-            avatarUrl
-          }
-        }
-      }
-    }
-  }
-`;
+import { GET_USER_BY_ID } from "../graphql/GET_USER_BY_ID";
 
 const OptimisticContainer = ({ css, children }: { css?: any, children: React.ReactNode}) => {
   return (
@@ -107,11 +86,11 @@ const ProfilesList = () => {
   const [loadProfiles, { called, loading, data, fetchMore }] = useLazyQuery<Query>(
     GET_USER_BY_ID
   );
-  const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
+  const { data: queryClientResult } = useQuery(GET_LOGIN);
 
   useEffect(() => {
     if (queryClientResult?.clientState.login) {
-      loadProfiles({ variables: { login: queryClientResult?.clientState?.login } });
+      loadProfiles({ variables: { login: queryClientResult?.clientState?.login, first: 10 } });
     }
   }, [loadProfiles, queryClientResult])
 
@@ -169,7 +148,8 @@ const ProfilesList = () => {
               fetchMore({
                 variables: {
                   cursor: data?.search?.pageInfo.endCursor,
-                  login: queryClientResult?.clientState?.login
+                  login: queryClientResult?.clientState?.login,
+                  first: 10
                 }
               })
             }

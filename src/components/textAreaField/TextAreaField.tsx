@@ -29,11 +29,9 @@ type TextAreaFieldVariants = VariantProps<typeof Wrapper> &
 type TextAreaFieldOwnProps = TextAreaFieldCSSProp & TextAreaFieldVariants;
 
 
-export const TextAreaField = React.forwardRef<
-  React.ElementRef<typeof Wrapper>, TextAreaFieldOwnProps
->((props, forwardedRef) => {
+export const TextAreaField = (props: TextAreaFieldOwnProps) => {
 
-  return <Wrapper css={props.css} ref={forwardedRef}>
+  return <Wrapper css={props.css}>
     {props.labelText &&
       <Text
         variant="body-default"
@@ -68,7 +66,6 @@ export const TextAreaField = React.forwardRef<
         </Text>}
     </Flex>
   </Wrapper>;
-});
+};
 
-TextAreaField.toString = () => `.${Wrapper.className}`;
 

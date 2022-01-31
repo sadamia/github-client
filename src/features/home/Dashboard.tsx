@@ -30,7 +30,10 @@ const Dashboard = () => {
     <Flex direction="column" css={{
       minWidth: '280px',
       alignItems: 'center',
-      padding: '1rem 3rem',
+      padding: '1rem',
+      '@sm': {
+        padding: '1rem 3rem',
+      },
       maxWidth: '1024px',
       margin: '0 auto',
     }}>

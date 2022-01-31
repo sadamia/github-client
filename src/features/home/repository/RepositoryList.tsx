@@ -9,6 +9,7 @@ import Grid from "../../../components/grid";
 import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
+import { Badge } from "../common/Badge";
 
 const GET_REPOS_BY_LOGIN = gql`
 query GetRepositories($login: String!, $first: Int!, $after: String, $before: String, $createdate: String!, $direction: String!) {
@@ -88,7 +89,12 @@ export const RepositoryList = () => {
     <ListWrapper
       columns={
         <Flex direction="column" css={{ gap: '1rem' }}>
-          <Text variant="headings-title-lg-bold-capitalized" css={{ fontWeight: 200 }}>Repositories</Text>
+          <Flex css={{
+            justifyContent: 'space-between',
+          }}>
+            <Text variant="headings-title-lg-bold-capitalized" css={{ fontWeight: 200 }}>Repositories</Text>
+            <Badge />
+          </Flex>
           <Grid
             css={{
               gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',

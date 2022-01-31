@@ -8,12 +8,14 @@ import { ellipsis } from 'polished';
 
 export const Profile = ({ item }: { item?: Maybe<User> }) => {
 
-  const onClickHandler = (loginValue?: string) => {
+  const onClickHandler = (loginValue?: string, avatarUrl?: string) => {
+    console.log(clientStateVar())
     clientStateVar({
       ...clientStateVar(),
       owner: undefined,
       repository: undefined,
-      selectedLogin: loginValue
+      selectedLogin: loginValue,
+      avatarUrl: avatarUrl,
     })
   };
   
@@ -62,7 +64,7 @@ export const Profile = ({ item }: { item?: Maybe<User> }) => {
           <Button
             size="compact"
             css={{ width: '$full' }}
-            onClick={() => onClickHandler(item?.login) }>
+            onClick={() => onClickHandler(item?.login, item?.avatarUrl) }>
             Profile
           </Button>
         </Flex>

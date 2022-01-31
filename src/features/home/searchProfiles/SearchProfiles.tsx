@@ -5,7 +5,7 @@ import { clientStateVar } from "../../../cache";
 import Button from "../../../components/button";
 import Flex from "../../../components/flex/Flex";
 import { SearchInput } from "./SearchInput";
-import { GET_SELECTED_LOGIN } from "../graphql/GET_SELECTED_LOGIN";
+import { GET_LOGIN } from "../graphql/GET_LOGIN";
 import { clearClientStateVar } from "../graphql/mutations";
 
 
@@ -19,7 +19,7 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     control
   } = useForm<{ search: string }>({ mode: 'all' });
 
-  const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
+  const { data: queryClientResult } = useQuery(GET_LOGIN);
 
   useEffect(() => {
     setValue('search', queryClientResult?.clientState?.login);
