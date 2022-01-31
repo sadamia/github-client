@@ -91,8 +91,18 @@ export const RepositoryList = () => {
         <Flex direction="column" css={{ gap: '1rem' }}>
           <Flex css={{
             justifyContent: 'space-between',
+            alignItems: 'center',
           }}>
-            <Text variant="headings-title-lg-bold-capitalized" css={{ fontWeight: 200 }}>Repositories</Text>
+            <Text
+              variant="headings-title-lg-bold-capitalized"
+              css={{
+                fontWeight: 200,
+                fontSize: '$lg',
+                '@sm': {
+                  fontSize: 'inherit'
+                },
+              }}
+            >Repositories</Text>
             <Badge />
           </Flex>
           <Grid
