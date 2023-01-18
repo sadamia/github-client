@@ -10,6 +10,7 @@ import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
+import Button from "../../../components/button";
 
 const GET_REPOS_BY_LOGIN = gql`
 query GetRepositories($login: String!, $first: Int!, $after: String, $before: String, $createdate: String!, $direction: String!) {
@@ -104,6 +105,7 @@ export const RepositoryList = () => {
               }}
             >Repositories</Text>
             <Badge />
+            <Button variant="secondary">Button</Button>
           </Flex>
           <Grid
             css={{

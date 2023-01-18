@@ -143,7 +143,7 @@ export const NewIssueDialog = (props: Props) => {
                 error={errors.body}
               />
               <Center>
-                <Text>{error}</Text>
+                <Text>{error?.message}</Text>
               </Center>
             </Flex>
           </Grid>

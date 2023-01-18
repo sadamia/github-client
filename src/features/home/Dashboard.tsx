@@ -1,6 +1,5 @@
 import Grid from '../../components/grid';
 import Flex from '../../components/flex/Flex'
-import { Text } from '../../components/text/Text';
 import { RepositoryList } from './repository/RepositoryList';
 import ProfilesList from './profiles/ProfilesList';
 import { IssuesList } from './issues/IssuesList';
