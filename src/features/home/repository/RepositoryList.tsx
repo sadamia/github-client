@@ -13,11 +13,11 @@ import { Badge } from "../common/Badge";
 import Button from "../../../components/button";
 
 const GET_REPOS_BY_LOGIN = gql`
-query GetRepositories($login: String!, $first: Int!, $after: String, $before: String, $createdate: String!, $direction: String!) {
+query GetRepositories($login: String!, $first: Int!, $after: String, $before: String, $orderBy: RepositoryOrder!) {
   user(login: $login) {
     repositories(
       first: $first,
-      orderBy: { field: $createdate, direction: $direction },
+      orderBy: $orderBy,
       after: $after,
       before: $before
     ) {
@@ -74,8 +74,10 @@ export const RepositoryList = () => {
       loadRepositories({
         variables: {
           login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
-          createdate: "UPDATED_AT",
-          direction: "DESC",
+          orderBy: {
+            field: "UPDATED_AT",
+            direction: "DESC",
+          },
           first: 50
         }
       });
@@ -105,7 +107,6 @@ export const RepositoryList = () => {
               }}
             >Repositories</Text>
             <Badge />
-            <Button variant="secondary">Button</Button>
           </Flex>
           <Grid
             css={{

@@ -15,10 +15,10 @@ import { LoadingContainer } from "../common/LoadingContainer";
 import Box from "../../../components/box";
 
 const ISSUES_BY_REPO_AND_OWNER = gql`
-query GetIssues($repository: String!, $owner: String!, $cursor: String, $first: Int!, $createdate: String!, $direction: String!) {
+query GetIssues($repository: String!, $owner: String!, $cursor: String, $first: Int!, $orderBy: IssueOrder!) {
   repository(name: $repository, owner: $owner) {
     name
-    issues(first: $first, after: $cursor, orderBy: { field: $createdate, direction: $direction }) {
+    issues(first: $first, after: $cursor, orderBy: $orderBy) {
       totalCount
       pageInfo {
         endCursor
@@ -68,8 +68,10 @@ export const IssuesList = () => {
           variables: {
             repository: queryClientResult?.clientState?.repository,
             owner: queryClientResult?.clientState?.owner,
-            createdate: "UPDATED_AT",
-            direction: "DESC",
+            orderBy: {
+              field: "UPDATED_AT",
+              direction: "DESC"
+            },
             first: 50
           }
         }
