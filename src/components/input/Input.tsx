@@ -83,7 +83,6 @@ type InputVariants = Omit<VariantProps<typeof StyledInput>, 'size'>;
 export type InputOwnProps = InputCSSProp & InputVariants &
 {
   size?: any,
-  placehoder?: string
   value?: string
   placeholder?: string
   validation?: any

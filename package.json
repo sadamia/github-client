@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.7.2",
+    "@apollo/client": "^3.7.7",
     "@apollo/react-testing": "^4.0.0",
     "@graphql-codegen/cli": "^2.3.1",
     "@hookform/resolvers": "^2.9.10",

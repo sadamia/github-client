@@ -9,7 +9,6 @@ import { ellipsis } from 'polished';
 export const Profile = ({ item }: { item?: Maybe<User> }) => {
 
   const onClickHandler = (loginValue?: string, avatarUrl?: string) => {
-    console.log(clientStateVar())
     clientStateVar({
       ...clientStateVar(),
       owner: undefined,

@@ -43,6 +43,7 @@ const clientInitialValue: ClientState = {
   selectedLogin: undefined,
   repository: undefined,
   owner: undefined,
+  repositoryId: undefined,
   avatarUrl: undefined
 }
 

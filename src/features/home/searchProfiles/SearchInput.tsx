@@ -42,7 +42,6 @@ export const SearchInput = (props: SearchInputProps) => {
         type={'text'}
         role={'search'}
         validation={props.validation}
-        value={props.value}
         placeholder={props.placeholder}
       />
       {search.length > 0 && <Flex css={{

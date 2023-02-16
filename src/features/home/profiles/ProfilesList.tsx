@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { Text } from "../../../components/text/Text"
 import Button from "../../../components/button";
 import { Profile } from "./Profile"
@@ -34,6 +34,7 @@ const EmptyProfilesList = () => {
       login: login,
       owner: undefined,
       repository: undefined,
+      repositoryId: undefined,
       selectedLogin: undefined
     })
   }
@@ -89,14 +90,14 @@ const ProfilesList = () => {
   const { data: queryClientResult } = useQuery(GET_LOGIN);
 
   useEffect(() => {
-    if (queryClientResult?.clientState.login) {
-      loadProfiles({ variables: { login: queryClientResult?.clientState?.login, first: 10 } });
+    if (queryClientResult?.clientState?.login) {
+      loadProfiles({ variables: { login: queryClientResult?.clientState?.login, first: 10 }, fetchPolicy: "cache-and-network" });
     }
-  }, [loadProfiles, queryClientResult])
+  }, [loadProfiles, queryClientResult?.clientState?.login])
 
   if (called && loading) {
     return <OptimisticContainer>
-      <Flex justify="center" css={{ maWidth: '160px' }}>
+      <Flex justify="center" css={{ maxWidth: '160px' }}>
         <Text variant="headings-title-default-bold">Loading ...</Text>
       </Flex>
     </OptimisticContainer>;

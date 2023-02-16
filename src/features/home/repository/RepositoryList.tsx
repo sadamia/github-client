@@ -10,53 +10,11 @@ import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
-import Button from "../../../components/button";
-
-const GET_REPOS_BY_LOGIN = gql`
-query GetRepositories($login: String!, $first: Int!, $after: String, $before: String, $orderBy: RepositoryOrder!) {
-  user(login: $login) {
-    repositories(
-      first: $first,
-      orderBy: $orderBy,
-      after: $after,
-      before: $before
-    ) {
-        totalCount
-        pageInfo {
-          startCursor
-          endCursor
-          hasNextPage
-          hasPreviousPage
-        }
-        edges {
-          cursor
-          node {
-            ... on Repository {
-              name
-              owner {
-                login
-              }
-              id
-              stargazers {
-                totalCount
-              }
-              watchers {
-                totalCount
-              }
-              updatedAt
-            }
-          }
-        }
-    }
-  }
-}
-`;
+import GET_REPOS_BY_LOGIN from "../graphql/GET_REPOS_BY_LOGIN";
 
 const GET_SELECTED_LOGIN = gql`
   query getSelectedLogin {
     clientState @client {
-      selectedLogin
-      login
       selectedLogin
     }
   }
@@ -67,10 +25,10 @@ export const RepositoryList = () => {
     GET_REPOS_BY_LOGIN
   );
   const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
-  const showInfinite = called && queryClientResult?.clientState.login && data?.user?.repositories?.edges?.length;
+  const showInfinite = called && queryClientResult?.clientState.selectedLogin && data?.user?.repositories?.edges?.length;
 
   useEffect(() => {
-    if (queryClientResult?.clientState?.login && queryClientResult?.clientState?.login) {
+    if (queryClientResult?.clientState?.selectedLogin) {
       loadRepositories({
         variables: {
           login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
@@ -82,7 +40,7 @@ export const RepositoryList = () => {
         }
       });
     }
-  }, [loadRepositories, queryClientResult?.clientState?.login, queryClientResult?.clientState?.selectedLogin])
+  }, [loadRepositories, queryClientResult?.clientState?.selectedLogin])
 
   if (error) {
     return <Text>There seems to be a problem, please try to repeat your operation.</Text>;
@@ -91,7 +49,7 @@ export const RepositoryList = () => {
   return (
     <ListWrapper
       columns={
-        <Flex direction="column" css={{ gap: '1rem' }}>
+        <Flex direction="column" css={{ gap: '1rem', width: '$full' }}>
           <Flex css={{
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -141,16 +99,18 @@ export const RepositoryList = () => {
                 variables: {
                   after: data?.user?.repositories?.pageInfo?.endCursor,
                   login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
-                  createdate: "UPDATED_AT",
-                  direction: "DESC",
+                  orderBy: {
+                    field: "UPDATED_AT",
+                    direction: "DESC",
+                  },
                   first: 50
                 }
               })
             }
             }
           /> : <>
-            {(!showInfinite || (!loading && !data)) && <OptimisticContainer message="You have not selected any profile yet." />}
             {loading && <LoadingContainer repeat={8} />}
+            {((!loading && !data)) && <OptimisticContainer message="You have not selected any profile yet." />}
           </>
           }
         </>

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { clientStateVar } from "../../../cache";
 import Button from "../../../components/button";
 import Flex from "../../../components/flex/Flex";
@@ -25,13 +25,18 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     setValue('search', queryClientResult?.clientState?.login);
   }, [setValue, queryClientResult?.clientState?.login])
 
+  const search = useWatch({
+    control,
+    name: "search",
+  });
+
   const onSearchHandler = () => {
     clientStateVar({
+      login: getValues('search'),
       selectedLogin: undefined,
       repository: undefined,
       owner: undefined,
       repositoryId: undefined,
-      login: getValues('search'),
     });
   }
 
@@ -39,6 +44,8 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     clearClientStateVar();
     setValue('search', '');
   }
+
+  const isDisabled = !isValid && !search;
   return (
     <Flex css={{ 
       position: 'sticky',
@@ -66,10 +73,9 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
             control={control}
           />
           <Button
-            role="submit"
+            type="submit"
             variant="secondary"
-            isDisabled={!isValid}
-            onClick={onSearchHandler}
+            isDisabled={isDisabled}
           >
             Search
           </Button>

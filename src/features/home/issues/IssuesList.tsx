@@ -12,7 +12,6 @@ import { IssueItem } from "./IssueItem";
 import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
-import Box from "../../../components/box";
 
 const ISSUES_BY_REPO_AND_OWNER = gql`
 query GetIssues($repository: String!, $owner: String!, $cursor: String, $first: Int!, $orderBy: IssueOrder!) {
@@ -126,8 +125,10 @@ export const IssuesList = () => {
                   repository: queryClientResult?.clientState?.repository,
                   owner: queryClientResult?.clientState?.owner,
                   cursor: data?.repository?.issues?.pageInfo?.endCursor,
-                  createdate: "UPDATED_AT",
-                  direction: "DESC",
+                  orderBy: {
+                    field: "UPDATED_AT",
+                    direction: "DESC"
+                  },
                   first: 50
                 }
               })

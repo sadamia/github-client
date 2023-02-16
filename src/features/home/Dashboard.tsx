@@ -5,14 +5,14 @@ import ProfilesList from './profiles/ProfilesList';
 import { IssuesList } from './issues/IssuesList';
 import SearchProfiles from './searchProfiles/SearchProfiles';
 
-const Section = ({ text, sectionList, gridArea }: { text: String, sectionList: React.ReactElement, gridArea: string }) => {
+const Section = ({ sectionList, gridArea }: { text: String, sectionList: React.ReactElement, gridArea: string }) => {
   return (
     <Flex direction="column" css={{
       gap: '1rem',
       gridArea: gridArea,
       overflow: 'hidden'
     }}>
-      {/* <Text variant="headings-title-lg-bold-capitalized">{text}</Text> */}
+      
       <Flex css={{
         maxWidth: 'calc(100vw - 2.5rem)',
         '@xl': {
