@@ -57,6 +57,7 @@ export const SearchInput = (props: SearchInputProps) => {
       }} >
         <Button
           variant='link'
+          type='button'
           size="compact"
           onClick={() => props.clearClientState()}
           css={{
@@ -68,6 +69,7 @@ export const SearchInput = (props: SearchInputProps) => {
         >X</Button>
         <Button
           variant='link'
+          type='button'
           size="compact"
           onClick={() => props.clearClientState()}
           css={{

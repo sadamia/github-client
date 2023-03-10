@@ -42,7 +42,7 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
 
   const clearClientState = () => {
     clearClientStateVar();
-    setValue('search', '');
+    setValue('search', '', { shouldValidate: true });
   }
 
   const isDisabled = !isValid && !search;
@@ -73,7 +73,6 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
             control={control}
           />
           <Button
-            type="submit"
             variant="secondary"
             isDisabled={isDisabled}
           >
