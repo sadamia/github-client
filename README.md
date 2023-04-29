@@ -7,7 +7,7 @@ npm install
 ```
 
 ### Configure
-Grab the `REACT_APP_GITHUB_ACCESS_TOKEN`
+Grab the `VITE_GITHUB_ACCESS_TOKEN`
 ```
 cp .env.sample .env
 ``` 

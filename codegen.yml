@@ -3,7 +3,7 @@ schema:
   - https://api.github.com/graphql:
       method: GET
       headers:
-        Authorization: "Bearer ${REACT_APP_GITHUB_ACCESS_TOKEN}"
+        Authorization: "Bearer ${VITE_GITHUB_ACCESS_TOKEN}"
 generates:
   src/generated/graphql.tsx:
     plugins:

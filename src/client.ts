@@ -1,24 +1,39 @@
 import {
   ApolloClient,
-  createHttpLink
+  createHttpLink,
+  from,
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
+import { onError } from "@apollo/client/link/error";
 import { cache } from './cache';
 
 const httpLink = createHttpLink({
   uri: 'https://api.github.com/graphql',
 });
 
-const authLink = setContext((_, { headers }) => {
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+      console.log(graphQLErrors);
+  }
+
+  if (networkError) {
+      // handle network error
+      console.log(networkError);
+  }
+});
+
+const authLink = from([setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: `Bearer ${process.env.REACT_APP_GITHUB_ACCESS_TOKEN}`,
+      authorization: `Bearer ${import.meta.env.VITE_GITHUB_ACCESS_TOKEN}`,
     }
   }
-});
+}),
+errorLink]);
 
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache,
+
 });

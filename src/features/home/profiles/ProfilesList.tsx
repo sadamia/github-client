@@ -84,16 +84,22 @@ const EmptyProfilesList = () => {
 }
 
 const ProfilesList = () => {
-  const [loadProfiles, { called, loading, data, fetchMore }] = useLazyQuery<Query>(
+  const [loadProfiles, { called, loading, data, fetchMore, error }] = useLazyQuery<Query>(
     GET_USER_BY_ID
   );
   const { data: queryClientResult } = useQuery(GET_LOGIN);
 
   useEffect(() => {
     if (queryClientResult?.clientState?.login) {
-      loadProfiles({ variables: { login: queryClientResult?.clientState?.login, first: 10 }, fetchPolicy: "cache-and-network" });
+      loadProfiles({ variables: { login: queryClientResult?.clientState?.login, first: 10 }, fetchPolicy: "network-only" });
     }
   }, [loadProfiles, queryClientResult?.clientState?.login])
+
+  if (error) {
+    return <OptimisticContainer>
+      <pre>{JSON.stringify(error, null, 2)}</pre>
+    </OptimisticContainer>;
+  }
 
   if (called && loading) {
     return <OptimisticContainer>
