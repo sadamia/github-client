@@ -17,7 +17,7 @@ import { IssueItem } from "./IssueItem";
 import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
-import useIssuesDataLoader from "./useIssuesDataLoader";
+import useIssuesList from "./useIssuesList";
 
 export const IssuesList = () => {
   const [
@@ -27,7 +27,7 @@ export const IssuesList = () => {
     error,
     showInfinite,
     fetchMore,
-  ] = useIssuesDataLoader();
+  ] = useIssuesList();
 
   if (error)
     return (

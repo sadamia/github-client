@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Text } from "../../../components/text/Text";
 import Button from "../../../components/button";
 import { Profile } from "./Profile";
 import {
   Maybe,
   User,
-  useGetLoginQuery,
-  useGetUserByLoginLazyQuery,
 } from "../../../generated/graphql";
 import Flex from "../../../components/flex/Flex";
 import { clientStateVar } from "../../../cache";
 import Box from "../../../components/box";
+import useProfilesList from "./useProfilesList";
 
 const OptimisticContainer = ({
   css,
@@ -98,18 +97,7 @@ const EmptyProfilesList = () => {
 };
 
 const ProfilesList = () => {
-  const [loadProfiles, { called, loading, data, fetchMore, error }] =
-    useGetUserByLoginLazyQuery();
-  const { data: queryClientResult } = useGetLoginQuery();
-
-  useEffect(() => {
-    if (queryClientResult?.clientState?.login) {
-      loadProfiles({
-        variables: { login: queryClientResult?.clientState?.login, first: 10 },
-        fetchPolicy: "cache-and-network",
-      });
-    }
-  }, [loadProfiles, queryClientResult?.clientState?.login]);
+  const [queryClientResult, called, loading, data, error, fetchMore] = useProfilesList();
 
   if (error) {
     return (

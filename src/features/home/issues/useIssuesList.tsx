@@ -6,7 +6,7 @@ import {
   useGetRepositoryAndOwnerQuery,
 } from "../../../generated/graphql";
 
-const useIssuesDataLoader = () => {
+const useIssuesList = () => {
   const { data: queryClientResult } = useGetRepositoryAndOwnerQuery();
   const [loadIssues, { called, loading, data, error, fetchMore }] =
     useGetIssuesLazyQuery();
@@ -40,7 +40,6 @@ const useIssuesDataLoader = () => {
     queryClientResult?.clientState?.repository,
   ]);
 
-  // return tuple
   return [
     queryClientResult,
     loading,
@@ -51,4 +50,4 @@ const useIssuesDataLoader = () => {
   ] as const;
 };
 
-export default useIssuesDataLoader;
+export default useIssuesList;
