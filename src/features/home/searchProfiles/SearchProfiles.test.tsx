@@ -1,19 +1,19 @@
 import { ApolloProvider } from '@apollo/client'
 import { render, fireEvent, screen, waitFor } from '@testing-library/react'
-import SearchUsers from './SearchProfiles'
+import SearchProfiles from './SearchProfiles'
 import { client } from '../../../client'
 
 it('Search button should be disabled for empty search criteria', async() => {
   render(
     <ApolloProvider client={client}>
-      <SearchUsers gridArea='search' />
+      <SearchProfiles gridArea='search' />
     </ApolloProvider>
   )
 
-  const submit = screen.getByRole('submit')
-
+  const search = screen.getByTestId('search-button')
+  
   await waitFor(() => {
-    expect(submit).toHaveAttribute('disabled');
+    expect(search).toBeDisabled();
   });
 
 })
@@ -21,12 +21,12 @@ it('Search button should be disabled for empty search criteria', async() => {
 it('Search button should be enabled for any search criteria', async() => {
   render(
     <ApolloProvider client={client}>
-      <SearchUsers gridArea='search' />
+      <SearchProfiles gridArea='search' />
     </ApolloProvider>
   )
 
   const search = screen.getByRole('search')
-  const submit = screen.getByRole('submit')
+  const submit = screen.getByTestId('search-button')
 
   await waitFor(() => {
     expect(submit).toHaveAttribute('disabled');

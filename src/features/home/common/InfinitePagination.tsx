@@ -18,7 +18,6 @@ export default function InfinitePagination({
 }) {
   // const isItemLoaded = (index: number): boolean => index < items.length;
   const isItemLoaded = index => !hasNextPage || index < items.length;
-  console.log('hasNextPage', hasNextPage)
 
 
   const Item = ({ index, style }: { index: number; style: CSSProperties }) => {
@@ -42,23 +41,25 @@ export default function InfinitePagination({
   const itemsCount = hasNextPage ? items.length + 1 : items.length;
 
   return (
-    <InfiniteLoader
-      isItemLoaded={isItemLoaded}
-      itemCount={itemsCount}
-      loadMoreItems={loadMoreItems}
-    >
-      {({ onItemsRendered, ref }) => (
-        <List
-          width={"100%"}
-          height={450}
-          itemSize={54}
-          itemCount={itemsCount}
-          onItemsRendered={onItemsRendered}
-          ref={ref}
-        >
-          {Item}
-        </List>
-      )}
-    </InfiniteLoader>
+    <div data-testid="infinite-pagination">
+      <InfiniteLoader
+        isItemLoaded={isItemLoaded}
+        itemCount={itemsCount}
+        loadMoreItems={loadMoreItems}
+      >
+        {({ onItemsRendered, ref }) => (
+          <List
+            width={"100%"}
+            height={450}
+            itemSize={54}
+            itemCount={itemsCount}
+            onItemsRendered={onItemsRendered}
+            ref={ref}
+          >
+            {Item}
+          </List>
+        )}
+      </InfiniteLoader>
+    </div>
   );
 }

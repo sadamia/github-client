@@ -30,7 +30,14 @@ const useRepositoryList = () => {
     }
   }, [loadRepositories, queryClientResult?.clientState?.selectedLogin]);
 
-  return [queryClientResult, loading, data, error, showInfinite, fetchMore] as const;
+  return [
+    queryClientResult,
+    loading,
+    data,
+    error,
+    showInfinite,
+    fetchMore,
+  ] as const;
 };
 
 export default useRepositoryList;

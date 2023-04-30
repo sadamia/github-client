@@ -65,6 +65,7 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
         }}>
           <SearchInput
             role="search"
+            
             placeholder='Search users'
             validation={register("search", {
               required: true
@@ -74,7 +75,8 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
           />
           <Button
             variant="secondary"
-            isDisabled={isDisabled}
+            data-testid="search-button"
+            disabled={isDisabled}
           >
             Search
           </Button>

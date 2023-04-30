@@ -237,6 +237,7 @@ type ButtonVariants = VariantProps<typeof ButtonBase> &
   name?: string
   role?: string
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  disabled?: boolean;
 };
 type ButtonOwnProps = ButtonCSSProp & ButtonVariants;
 
@@ -245,6 +246,7 @@ const Button = React.forwardRef<
     ({ leftPart, rightPart, children, ...restProps }, forwardedRef) => {
 
       return <ButtonBase
+        isDisabled={restProps.disabled}
         {...restProps}
       >
         {leftPart}
