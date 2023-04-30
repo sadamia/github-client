@@ -1,0 +1,12 @@
+type ClientState {
+  login: String
+  selectedLogin: String
+  repository: String
+  owner: String
+  repositoryId: String
+  avatarUrl: String
+}
+
+extend type Query {
+  clientState: ClientState
+}

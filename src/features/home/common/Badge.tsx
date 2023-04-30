@@ -2,11 +2,11 @@ import Flex from "../../../components/flex/Flex"
 import { Text } from "../../../components/text/Text";
 import { Avatar } from "../../../components/avatar/Avatar";
 import { useQuery } from "@apollo/client";
-import { GET_SELECTED_LOGIN } from "../graphql/GET_SELECTED_LOGIN";
+import { GET_SELECTED_PROFILE } from "../graphql/GET_SELECTED_PROFILE";
 import { ellipsis } from "polished";
 
 export const Badge = () => {
-  const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
+  const { data: queryClientResult } = useQuery(GET_SELECTED_PROFILE);
 
   if (!queryClientResult?.clientState?.login || !queryClientResult?.clientState?.selectedLogin) {
     return null;

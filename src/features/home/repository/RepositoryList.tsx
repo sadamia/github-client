@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { Text } from "../../../components/text/Text";
-import { Query } from '../../../generated/graphql';
+import {
+  OrderDirection,
+  RepositoryOrderField,
+  useGetRepositoriesLazyQuery,
+} from "../../../generated/graphql";
 import InfinitePagination from "../common/InfinitePagination";
 import { RepositoryItem } from "./RepositoryItem";
 import { ListWrapper } from "../common/ListWrapper";
@@ -10,7 +14,6 @@ import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
-import GET_REPOS_BY_LOGIN from "../graphql/GET_REPOS_BY_LOGIN";
 
 const GET_SELECTED_LOGIN = gql`
   query getSelectedLogin {
@@ -21,66 +24,81 @@ const GET_SELECTED_LOGIN = gql`
 `;
 
 export const RepositoryList = () => {
-  const [loadRepositories, { called, loading, data, error, fetchMore }] = useLazyQuery<Query>(
-    GET_REPOS_BY_LOGIN
-  );
+  const [loadRepositories, { called, loading, data, error, fetchMore }] =
+    useGetRepositoriesLazyQuery();
   const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
-  const showInfinite = called && queryClientResult?.clientState.selectedLogin && data?.user?.repositories?.edges?.length;
+  const showInfinite =
+    called &&
+    queryClientResult?.clientState.selectedLogin &&
+    data?.user?.repositories?.edges?.length;
 
   useEffect(() => {
     if (queryClientResult?.clientState?.selectedLogin) {
       loadRepositories({
         variables: {
-          login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
+          login: queryClientResult?.clientState?.selectedLogin.replace("@", ""),
           orderBy: {
-            field: "UPDATED_AT",
-            direction: "DESC",
+            field: RepositoryOrderField.UpdatedAt,
+            direction: OrderDirection.Desc,
           },
-          first: 50
-        }
+          first: 50,
+        },
       });
     }
-  }, [loadRepositories, queryClientResult?.clientState?.selectedLogin])
+  }, [loadRepositories, queryClientResult?.clientState?.selectedLogin]);
 
   if (error) {
-    return <Text>There seems to be a problem, please try to repeat your operation.</Text>;
+    return (
+      <Text>
+        There seems to be a problem, please try to repeat your operation.
+      </Text>
+    );
   }
 
   return (
     <ListWrapper
       columns={
-        <Flex direction="column" css={{ gap: '1rem', width: '$full' }}>
-          <Flex css={{
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
+        <Flex direction="column" css={{ gap: "1rem", width: "$full" }}>
+          <Flex
+            css={{
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Text
               variant="headings-title-lg-bold-capitalized"
               css={{
                 fontWeight: 200,
-                fontSize: '$lg',
-                '@sm': {
-                  fontSize: '1.625rem',
+                fontSize: "$lg",
+                "@sm": {
+                  fontSize: "1.625rem",
                 },
               }}
-            >Repositories</Text>
+            >
+              Repositories
+            </Text>
             <Badge />
           </Flex>
           <Grid
             css={{
-              gridTemplateColumns: 'minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)',
-              '@sm': {
-                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)',
+              gridTemplateColumns:
+                "minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)",
+              "@sm": {
+                gridTemplateColumns:
+                  "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)",
               },
-              '@md': {
-                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)',
+              "@md": {
+                gridTemplateColumns:
+                  "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)",
               },
-              '@lg': {
-                gridTemplateColumns: 'minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)',
+              "@lg": {
+                gridTemplateColumns:
+                  "minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)",
               },
-              width: '100%',
-              gap: '1rem',
-            }}>
+              width: "100%",
+              gap: "1rem",
+            }}
+          >
             <Text variant="headings-title-default-bold">Name</Text>
             <Text variant="headings-title-default-bold">Rating</Text>
             <Text variant="headings-title-default-bold">Watchers</Text>
@@ -89,36 +107,47 @@ export const RepositoryList = () => {
       }
       infinitePagination={
         <>
-          {showInfinite ? <InfinitePagination
-            hasNextPage={!!data?.user?.repositories?.pageInfo?.hasNextPage}
-            items={data?.user?.repositories?.edges}
-            isNextPageLoading={loading}
-            RowTemplate={RepositoryItem}
-            loadNextPage={() => {
-              fetchMore({
-                variables: {
-                  after: data?.user?.repositories?.pageInfo?.endCursor,
-                  login: queryClientResult?.clientState?.selectedLogin.replace('@', ''),
-                  orderBy: {
-                    field: "UPDATED_AT",
-                    direction: "DESC",
+          {showInfinite ? (
+            <InfinitePagination
+              hasNextPage={!!data?.user?.repositories?.pageInfo?.hasNextPage}
+              items={data?.user?.repositories?.edges}
+              isNextPageLoading={loading}
+              RowTemplate={RepositoryItem}
+              loadNextPage={() => {
+                fetchMore({
+                  variables: {
+                    after: data?.user?.repositories?.pageInfo?.endCursor,
+                    login:
+                      queryClientResult?.clientState?.selectedLogin.replace(
+                        "@",
+                        ""
+                      ),
+                    orderBy: {
+                      field: "UPDATED_AT",
+                      direction: "DESC",
+                    },
+                    first: 50,
                   },
-                  first: 50
-                }
-              })
-            }
-            }
-          /> : <>
-            {loading && <LoadingContainer repeat={8} />}
-            {((!loading && !data)) && <OptimisticContainer message="You have not selected any profile yet." />}
-          </>
-          }
+                });
+              }}
+            />
+          ) : (
+            <>
+              {loading && <LoadingContainer repeat={8} />}
+              {!loading && !data && (
+                <OptimisticContainer message="You have not selected any profile yet." />
+              )}
+            </>
+          )}
         </>
       }
       footer={
-        <Flex css={{ gap: '0.25rem' }}>
+        <Flex css={{ gap: "0.25rem" }}>
           <Text variant="headings-title-default-bold">Total repositories</Text>
-          <Text variant="headings-title-default-bold" css={{ fontWeight: '$regular' }}>
+          <Text
+            variant="headings-title-default-bold"
+            css={{ fontWeight: "$regular" }}
+          >
             {showInfinite && data?.user?.repositories?.totalCount}
           </Text>
         </Flex>
@@ -126,4 +155,4 @@ export const RepositoryList = () => {
       loading={loading}
     />
   );
-}
+};

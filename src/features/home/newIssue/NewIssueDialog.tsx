@@ -28,7 +28,7 @@ interface Props {
 }
 
 const CREATE_ISSUE = gql`
-mutation CreateIssue($repositoryId: String!, $title: String!, $body: String!) {
+mutation CreateIssue($repositoryId: ID!, $title: String!, $body: String!) {
   createIssue(input: { 
     repositoryId: $repositoryId,
     title: $title,

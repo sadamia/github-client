@@ -4,12 +4,19 @@ schema:
       method: GET
       headers:
         Authorization: "Bearer ${VITE_GITHUB_ACCESS_TOKEN}"
+        User-Agent: "sadamia/github-client"
+  - "src/client-schema.graphql"
+documents: "src/**/*.tsx"   
 generates:
   src/generated/graphql.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+    config:
+      withHooks: true      
   ./graphql.schema.json:
+    config:
+      withHooks: true      
     plugins:
       - "introspection"
