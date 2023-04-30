@@ -39,8 +39,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "eslint": "eslint --fix --ext .js,.jsx,.ts,.tsx, src",
-    "generate:types": "graphql-codegen --require dotenv/config --config codegen.yml",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "generate:types": "graphql-codegen --require dotenv/config --config codegen.yml"
   },
   "eslintConfig": {
     "extends": [
