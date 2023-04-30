@@ -1,12 +1,4 @@
-import { useEffect } from "react";
-
 import { Text } from "../../../components/text/Text";
-import {
-  OrderDirection,
-  RepositoryOrderField,
-  useGetRepositoriesLazyQuery,
-  useGetSelectedLoginQuery,
-} from "../../../generated/graphql";
 import InfinitePagination from "../common/InfinitePagination";
 import { RepositoryItem } from "./RepositoryItem";
 import { ListWrapper } from "../common/ListWrapper";
@@ -15,31 +7,11 @@ import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
-
+import useRepositoryList from "./useRepositoryList";
 
 export const RepositoryList = () => {
-  const [loadRepositories, { called, loading, data, error, fetchMore }] =
-    useGetRepositoriesLazyQuery();
-  const { data: queryClientResult } = useGetSelectedLoginQuery();
-  const showInfinite =
-    called &&
-    queryClientResult?.clientState.selectedLogin &&
-    data?.user?.repositories?.edges?.length;
-
-  useEffect(() => {
-    if (queryClientResult?.clientState?.selectedLogin) {
-      loadRepositories({
-        variables: {
-          login: queryClientResult?.clientState?.selectedLogin.replace("@", ""),
-          orderBy: {
-            field: RepositoryOrderField.UpdatedAt,
-            direction: OrderDirection.Desc,
-          },
-          first: 50,
-        },
-      });
-    }
-  }, [loadRepositories, queryClientResult?.clientState?.selectedLogin]);
+  const [queryClientResult, loading, data, error, showInfinite, fetchMore] =
+    useRepositoryList();
 
   if (error) {
     return (
