@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
 import { Text } from "../../../components/text/Text";
 import Button from "../../../components/button";
 import { Profile } from "./Profile";
 import {
   Maybe,
-  Query,
   User,
+  useGetLoginQuery,
   useGetUserByLoginLazyQuery,
 } from "../../../generated/graphql";
 import Flex from "../../../components/flex/Flex";
-import { GET_LOGIN } from "../graphql/GET_LOGIN";
 import { clientStateVar } from "../../../cache";
 import Box from "../../../components/box";
 
@@ -102,7 +100,7 @@ const EmptyProfilesList = () => {
 const ProfilesList = () => {
   const [loadProfiles, { called, loading, data, fetchMore, error }] =
     useGetUserByLoginLazyQuery();
-  const { data: queryClientResult } = useQuery(GET_LOGIN);
+  const { data: queryClientResult } = useGetLoginQuery();
 
   useEffect(() => {
     if (queryClientResult?.clientState?.login) {

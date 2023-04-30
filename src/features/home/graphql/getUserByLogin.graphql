@@ -1,7 +1,4 @@
-import { gql } from "@apollo/client";
-
-export const GET_USER_BY_ID = gql`
-  query GetUserByLogin($login: String!, $cursor: String, $first: Int!) { 
+  query getUserByLogin($login: String!, $cursor: String, $first: Int!) { 
     search(query: $login, type: USER, first: $first, after: $cursor){
       userCount
       pageInfo {
@@ -20,4 +17,3 @@ export const GET_USER_BY_ID = gql`
       }
     }
   }
-`;

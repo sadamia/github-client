@@ -6,7 +6,9 @@ schema:
         Authorization: "Bearer ${VITE_GITHUB_ACCESS_TOKEN}"
         User-Agent: "sadamia/github-client"
   - "src/client-schema.graphql"
-documents: "src/**/*.tsx"   
+documents: 
+  - "./src/**/*.tsx"
+  - "./src/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
     plugins:

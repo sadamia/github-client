@@ -1,0 +1,8 @@
+query getRepositoryAndOwner {
+  clientState @client {
+    repository
+    owner
+    selectedLogin
+    login
+  }
+}

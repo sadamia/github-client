@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { Text } from "../../../components/text/Text";
 import {
   IssueOrderField,
   OrderDirection,
   useGetIssuesLazyQuery,
+  useGetRepositoryAndOwnerQuery,
 } from "../../../generated/graphql";
 import Button from "../../../components/button";
 import { NewIssueDialog } from "../newIssue/NewIssueDialog";
@@ -17,56 +18,11 @@ import Flex from "../../../components/flex/Flex";
 import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 
-const ISSUES_BY_REPO_AND_OWNER = gql`
-  query GetIssues(
-    $repository: String!
-    $owner: String!
-    $cursor: String
-    $first: Int!
-    $orderBy: IssueOrder!
-  ) {
-    repository(name: $repository, owner: $owner) {
-      name
-      issues(first: $first, after: $cursor, orderBy: $orderBy) {
-        totalCount
-        pageInfo {
-          endCursor
-          startCursor
-          hasPreviousPage
-          hasNextPage
-        }
-        edges {
-          cursor
-          node {
-            id
-            title
-            author {
-              login
-            }
-            updatedAt
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const SELECTED_LOGIN_AND_OWNER = gql`
-  query getRepositoryAndOwner {
-    clientState @client {
-      repository
-      owner
-      selectedLogin
-      login
-    }
-  }
-`;
-
 export const IssuesList = () => {
   const [loadIssues, { called, loading, data, error, fetchMore }] =
     useGetIssuesLazyQuery();
 
-  const { data: queryClientResult } = useQuery(SELECTED_LOGIN_AND_OWNER);
+  const { data: queryClientResult } = useGetRepositoryAndOwnerQuery();
   const showInfinite =
     called &&
     queryClientResult?.clientState.login &&

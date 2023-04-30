@@ -22,6 +22,7 @@ import TextField from '../../../components/textField';
 import TextAreaField from '../../../components/textAreaField';
 import { newIssueSchema } from './newIssueSchema';
 import { gql, useMutation, useQuery } from '@apollo/client';
+import { useGetSelectedRepositoryQuery } from '../../../generated/graphql';
 
 interface Props {
   children?: React.ReactNode,
@@ -46,13 +47,6 @@ mutation CreateIssue($repositoryId: ID!, $title: String!, $body: String!) {
 }
 `;
 
-const GET_SELECTED_REPOSITORY = gql`
-  query getSelectedRepository {
-    clientState @client {
-      repositoryId
-    }
-  }
-`;
 
 export const NewIssueDialog = (props: Props) => {
   const [open, setOpen] = useState(false)
@@ -78,7 +72,7 @@ export const NewIssueDialog = (props: Props) => {
   const [addIssue, { loading, error }] = useMutation(CREATE_ISSUE, {
     refetchQueries: ['GetIssues']
   });
-  const { data: queryClientResult } = useQuery(GET_SELECTED_REPOSITORY);
+  const { data: queryClientResult } = useGetSelectedRepositoryQuery();
 
 
   const save = useCallback(() => {

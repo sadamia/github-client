@@ -1,0 +1,5 @@
+query getLogin {
+  clientState @client {
+    login
+  }
+}

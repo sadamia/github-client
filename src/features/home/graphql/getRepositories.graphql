@@ -1,0 +1,43 @@
+query getRepositories(
+  $login: String!
+  $first: Int!
+  $after: String
+  $before: String
+  $orderBy: RepositoryOrder!
+) {
+  user(login: $login) {
+    repositories(
+      first: $first
+      orderBy: $orderBy
+      after: $after
+      before: $before
+    ) {
+      totalCount
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          ... on Repository {
+            name
+            owner {
+              login
+            }
+            id
+            stargazers {
+              totalCount
+            }
+            watchers {
+              totalCount
+            }
+            updatedAt
+          }
+        }
+      }
+    }
+  }
+}

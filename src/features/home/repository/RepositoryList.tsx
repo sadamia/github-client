@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
+
 import { Text } from "../../../components/text/Text";
 import {
   OrderDirection,
   RepositoryOrderField,
   useGetRepositoriesLazyQuery,
+  useGetSelectedLoginQuery,
 } from "../../../generated/graphql";
 import InfinitePagination from "../common/InfinitePagination";
 import { RepositoryItem } from "./RepositoryItem";
@@ -15,18 +16,11 @@ import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
 
-const GET_SELECTED_LOGIN = gql`
-  query getSelectedLogin {
-    clientState @client {
-      selectedLogin
-    }
-  }
-`;
 
 export const RepositoryList = () => {
   const [loadRepositories, { called, loading, data, error, fetchMore }] =
     useGetRepositoriesLazyQuery();
-  const { data: queryClientResult } = useQuery(GET_SELECTED_LOGIN);
+  const { data: queryClientResult } = useGetSelectedLoginQuery();
   const showInfinite =
     called &&
     queryClientResult?.clientState.selectedLogin &&
@@ -152,7 +146,6 @@ export const RepositoryList = () => {
           </Text>
         </Flex>
       }
-      loading={loading}
     />
   );
 };

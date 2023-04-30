@@ -1,0 +1,5 @@
+query getSelectedLogin {
+  clientState @client {
+    selectedLogin
+  }
+}
