@@ -8,38 +8,48 @@ export default function InfinitePagination({
   items,
   loadNextPage,
   RowTemplate,
-  isNextPageLoading
-}: { hasNextPage: boolean, items: any, loadNextPage: () => void, RowTemplate: any, isNextPageLoading: boolean }) {
+  isNextPageLoading,
+}: {
+  hasNextPage: boolean;
+  items: any;
+  loadNextPage: () => void;
+  RowTemplate: any;
+  isNextPageLoading: boolean;
+}) {
+  // const isItemLoaded = (index: number): boolean => index < items.length;
+  const isItemLoaded = index => !hasNextPage || index < items.length;
+  console.log('hasNextPage', hasNextPage)
 
-  const isItemLoaded = (index: number): boolean => index < items.length;
 
-  const Item = ({ index, style }: { index: number, style: CSSProperties }) => {
+  const Item = ({ index, style }: { index: number; style: CSSProperties }) => {
     if (!isItemLoaded(index)) {
-      return <div style={style}><LoadingContainer repeat={1} /></div>;
-    } 
+      return (
+        <div style={style}>
+          <LoadingContainer repeat={1} />{index}{items.length}
+        </div>
+      );
+    }
     const edge = items && items[index];
 
     return <RowTemplate edge={edge} index={index} style={style} />;
   };
 
-
   if (!items) {
     return <p>No data</p>;
   }
-  const loadMoreItems = isNextPageLoading ? () => void 0: loadNextPage;
-  
-  const itemsCount = hasNextPage ? items.length+1 : items.length;
+  const loadMoreItems = isNextPageLoading ? () => void 0 : loadNextPage;
+
+  const itemsCount = hasNextPage ? items.length + 1 : items.length;
 
   return (
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
       itemCount={itemsCount}
       loadMoreItems={loadMoreItems}
-
     >
       {({ onItemsRendered, ref }) => (
         <List
-          width={'100%'}
+          width={"100%"}
           height={450}
           itemSize={54}
           itemCount={itemsCount}

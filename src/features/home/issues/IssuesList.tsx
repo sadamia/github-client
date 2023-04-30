@@ -152,7 +152,7 @@ export const IssuesList = () => {
         <>
           {showInfinite ? (
             <InfinitePagination
-              hasNextPage={!data?.repository?.issues?.pageInfo?.hasNextPage}
+              hasNextPage={!!data?.repository?.issues?.pageInfo?.hasNextPage}
               items={data?.repository?.issues?.edges}
               RowTemplate={IssueItem}
               isNextPageLoading={loading}
@@ -163,8 +163,8 @@ export const IssuesList = () => {
                     owner: queryClientResult?.clientState?.owner,
                     cursor: data?.repository?.issues?.pageInfo?.endCursor,
                     orderBy: {
-                      field: "UPDATED_AT",
-                      direction: "DESC",
+                      field: IssueOrderField.UpdatedAt,
+                      direction: OrderDirection.Desc,
                     },
                     first: 50,
                   },
@@ -194,7 +194,6 @@ export const IssuesList = () => {
           </Text>
         </Flex>
       }
-      loading={loading}
     />
   );
 };
