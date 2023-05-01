@@ -1,28 +1,28 @@
 import { styled, keyframes } from "../../theme";
 
 const pulse = keyframes({
-  '0%': { opacity: 0 },
-  '100%': { opacity: '100%' },
+  "0%": { opacity: 0 },
+  "100%": { opacity: "100%" },
 });
 
-export const Skeleton = styled('div', {
-  backgroundColor: '#eceef0',
-  position: 'relative',
-  overflow: 'hidden',
-  borderRadius: '1px',
+export const Skeleton = styled("div", {
+  backgroundColor: "#eceef0",
+  position: "relative",
+  overflow: "hidden",
+  borderRadius: "1px",
 
-  '&::after': {
+  "&::after": {
     animationName: `${pulse}`,
-    animationDuration: '500ms',
-    animationDirection: 'alternate',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'ease-in-out',
-    backgroundColor: '#dfe3e6',
-    borderRadius: 'inherit',
+    animationDuration: "500ms",
+    animationDirection: "alternate",
+    animationIterationCount: "infinite",
+    animationTimingFunction: "ease-in-out",
+    backgroundColor: "#dfe3e6",
+    borderRadius: "inherit",
     bottom: 0,
-    content: '""',
+    content: "\"\"",
     left: 0,
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 0,
   },
@@ -30,14 +30,14 @@ export const Skeleton = styled('div', {
   variants: {
     variant: {
       text: {
-        height: '0.25rem',
+        height: "0.25rem",
       },
       title: {
-        height: '0.75rem',
+        height: "0.75rem",
       },
     },
   },
   defaultVariants: {
-    variant: 'text',
+    variant: "text",
   },
 });

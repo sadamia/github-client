@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 const CloseIcon = () => (
   <svg
@@ -14,6 +14,6 @@ const CloseIcon = () => (
       fill="#0071F3"
     />
   </svg>
-)
+);
 
-export default CloseIcon
+export default CloseIcon;

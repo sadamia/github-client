@@ -15,7 +15,7 @@ const OptimisticContainer = ({
   css,
   children,
 }: {
-  css?: any;
+  css?: CSS;
   children: React.ReactNode;
 }) => {
   return (
@@ -124,7 +124,7 @@ const ProfilesList = () => {
   if (data?.search.edges?.length === 0) {
     return (
       <OptimisticContainer>
-        <Text>This @github profile doesn't yet.</Text>
+        <Text>This @github profile doesn&apos;t yet.</Text>
       </OptimisticContainer>
     );
   }
@@ -147,36 +147,36 @@ const ProfilesList = () => {
         ))}
       {queryClientResult?.clientState.login &&
         data?.search?.pageInfo.hasNextPage && (
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            css={{
-              width: "100%",
-              padding: "1rem",
-              borderRadius: "$8px",
-              maxWidth: "10rem",
-              gap: "0.5rem",
-              minHeight: "190px",
-              border: "dashed 4px #e2e8f0",
-              background: "white",
-            }}
+        <Flex
+          direction="column"
+          align="center"
+          justify="center"
+          css={{
+            width: "100%",
+            padding: "1rem",
+            borderRadius: "$8px",
+            maxWidth: "10rem",
+            gap: "0.5rem",
+            minHeight: "190px",
+            border: "dashed 4px #e2e8f0",
+            background: "white",
+          }}
+        >
+          <Button
+            onClick={() =>
+              fetchMore({
+                variables: {
+                  cursor: data?.search?.pageInfo.endCursor,
+                  login: queryClientResult?.clientState?.login,
+                  first: 10,
+                },
+              })
+            }
           >
-            <Button
-              onClick={() =>
-                fetchMore({
-                  variables: {
-                    cursor: data?.search?.pageInfo.endCursor,
-                    login: queryClientResult?.clientState?.login,
-                    first: 10,
-                  },
-                })
-              }
-            >
               Load more
-            </Button>
-          </Flex>
-        )}
+          </Button>
+        </Flex>
+      )}
     </Flex>
   );
 };

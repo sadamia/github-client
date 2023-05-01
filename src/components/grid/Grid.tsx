@@ -1,7 +1,7 @@
-import { styled } from '../../theme';
+import { styled } from "../../theme";
 
-const Grid = styled('div', {
-  display: 'grid',
+const Grid = styled("div", {
+  display: "grid",
 });
 
 export default Grid;

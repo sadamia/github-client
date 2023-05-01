@@ -1,7 +1,7 @@
-import { styled } from '../../theme';
+import { styled } from "../../theme";
 
-const Box = styled('div', {
-  boxSizing: 'border-box',
+const Box = styled("div", {
+  boxSizing: "border-box",
   fontFamily: "$primary",
 });
 

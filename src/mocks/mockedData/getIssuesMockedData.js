@@ -716,4 +716,4 @@ export const getIssuesMockedData = {
     },
     "__typename": "Repository"
   }
-}
+};

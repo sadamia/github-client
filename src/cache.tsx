@@ -45,7 +45,7 @@ const clientInitialValue: ClientState = {
   owner: undefined,
   repositoryId: undefined,
   avatarUrl: undefined
-}
+};
 
 export const clientStateVar: ReactiveVar<ClientState> = makeVar<ClientState>(
   clientInitialValue

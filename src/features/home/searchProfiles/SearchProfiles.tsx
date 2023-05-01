@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { clientStateVar } from "../../../cache";
@@ -17,13 +16,13 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
     handleSubmit,
     setValue,
     control
-  } = useForm<{ search: string }>({ mode: 'all' });
+  } = useForm<{ search: string }>({ mode: "all" });
 
   const { data: queryClientResult } = useGetLoginQuery();
 
   useEffect(() => {
-    setValue('search', queryClientResult?.clientState?.login);
-  }, [setValue, queryClientResult?.clientState?.login])
+    setValue("search", queryClientResult?.clientState?.login);
+  }, [setValue, queryClientResult?.clientState?.login]);
 
   const search = useWatch({
     control,
@@ -32,36 +31,36 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
 
   const onSearchHandler = () => {
     clientStateVar({
-      login: getValues('search'),
+      login: getValues("search"),
       selectedLogin: undefined,
       repository: undefined,
       owner: undefined,
       repositoryId: undefined,
     });
-  }
+  };
 
   const clearClientState = () => {
     clearClientStateVar();
-    setValue('search', '', { shouldValidate: true });
-  }
+    setValue("search", "", { shouldValidate: true });
+  };
 
   const isDisabled = !isValid && !search;
   return (
     <Flex css={{ 
-      position: 'sticky',
-      zIndex: '$1',
-      width: '100%',
-      background: 'white',
-      top: '0',
-      padding: '1rem 0 1rem 0',
-      boxShadow: '0 5px 5px -5px rgba(21, 29, 34, 0.08)',
-      borderBottom: '1px solid #e2e8f0',
-      maxWidth: 'calc(100vw - 2.5rem)',
+      position: "sticky",
+      zIndex: "$1",
+      width: "100%",
+      background: "white",
+      top: "0",
+      padding: "1rem 0 1rem 0",
+      boxShadow: "0 5px 5px -5px rgba(21, 29, 34, 0.08)",
+      borderBottom: "1px solid #e2e8f0",
+      maxWidth: "calc(100vw - 2.5rem)",
       gridArea: gridArea,
     }}>
       <form onSubmit={handleSubmit(onSearchHandler)}>
         <Flex css={{
-          gap: '0.5rem',
+          gap: "0.5rem",
         }}>
           <SearchInput
             role="search"
@@ -84,6 +83,6 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
       </form>
     </Flex>
   );
-}
+};
 
 export default SearchUsers;

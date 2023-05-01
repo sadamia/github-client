@@ -1,40 +1,40 @@
-import { styled } from '../../theme';
+import { styled } from "../../theme";
 
-const Center = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  boxSizing: 'border-box',
+const Center = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  boxSizing: "border-box",
   variants: {
     direction: {
       row: {
-        flexDirection: 'row',
+        flexDirection: "row",
       },
       column: {
-        flexDirection: 'column',
+        flexDirection: "column",
       },
       rowReverse: {
-        flexDirection: 'row-reverse',
+        flexDirection: "row-reverse",
       },
       columnReverse: {
-        flexDirection: 'column-reverse',
+        flexDirection: "column-reverse",
       }
     },
     align: {
       start: {
-        alignItems: 'flex-start',
+        alignItems: "flex-start",
       },
       center: {
-        alignItems: 'center',
+        alignItems: "center",
       },
       end: {
-        alignItems: 'flex-end',
+        alignItems: "flex-end",
       },
       stretch: {
-        alignItems: 'stretch',
+        alignItems: "stretch",
       },
       baseline: {
-        alignItems: 'baseline',
+        alignItems: "baseline",
       },
     },
   }

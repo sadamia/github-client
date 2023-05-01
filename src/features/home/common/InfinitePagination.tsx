@@ -11,9 +11,9 @@ export default function InfinitePagination({
   isNextPageLoading,
 }: {
   hasNextPage: boolean;
-  items: any;
+  items: React.ReactNode;
   loadNextPage: () => void;
-  RowTemplate: any;
+  RowTemplate: React.ReactNode;
   isNextPageLoading: boolean;
 }) {
   // const isItemLoaded = (index: number): boolean => index < items.length;

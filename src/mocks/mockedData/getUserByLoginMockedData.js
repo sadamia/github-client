@@ -110,4 +110,4 @@ export const getUserByLoginMockedData = {
     ],
     "__typename": "SearchResultItemConnection"
   }
-}
+};

@@ -1,15 +1,15 @@
-import React from 'react';
-import { styled, CSS, VariantProps } from '../../theme';
-import TextArea from '../textArea';
-import Grid from '../grid'
-import { Text } from '../text/Text'
-import Flex from '../flex/Flex';
-import { ErrorOption } from 'react-hook-form';
+import React from "react";
+import { styled, CSS, VariantProps } from "../../theme";
+import TextArea from "../textArea";
+import Grid from "../grid";
+import { Text } from "../text/Text";
+import Flex from "../flex/Flex";
+import { ErrorOption } from "react-hook-form";
 
 const Wrapper = styled(Grid, {
-  gridTemplateAreas: '"labelText" "input" "errorText"',
-  gap: '0.25rem',
-})
+  gridTemplateAreas: "\"labelText\" \"input\" \"errorText\"",
+  gap: "0.25rem",
+});
 
 type TextAreaFieldCSSProp = { css?: CSS };
 type TextAreaFieldVariants = VariantProps<typeof Wrapper> &
@@ -21,9 +21,8 @@ type TextAreaFieldVariants = VariantProps<typeof Wrapper> &
   value?: string,
   error?: ErrorOption,
   placeholder?: string,
-  validation?: any
+  validation?: object
   name: string
-  control?: any
   rows?: number
 };
 type TextAreaFieldOwnProps = TextAreaFieldCSSProp & TextAreaFieldVariants;
@@ -36,14 +35,14 @@ export const TextAreaField = (props: TextAreaFieldOwnProps) => {
       <Text
         variant="body-default"
         css={{
-          gridArea: 'labelText',
-          marginBottom: '2px',
-          textAlign: 'left',
+          gridArea: "labelText",
+          marginBottom: "2px",
+          textAlign: "left",
         }}
       >{props.labelText}</Text>}
     <Flex direction="column" css={{
-      position: 'relative',
-      gridArea: 'input',
+      position: "relative",
+      gridArea: "input",
     }}>
       <TextArea
         name={props.name}
@@ -52,15 +51,15 @@ export const TextAreaField = (props: TextAreaFieldOwnProps) => {
         placeholder={props.placeholder}
         rows={props.rows}
         css={{
-          gridArea: 'input',
-          marginBottom: '2px'
+          gridArea: "input",
+          marginBottom: "2px"
         }}
       ></TextArea>
 
       {props.error &&
         <Text
           variant="functional-error"
-          css={{ marginBottom: '2px', textAlign: 'left' }}
+          css={{ marginBottom: "2px", textAlign: "left" }}
         >
           {props?.error?.message}
         </Text>}

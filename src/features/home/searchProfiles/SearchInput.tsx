@@ -1,10 +1,10 @@
-import React from 'react';
-import SearchIcon from '../../../icons/SearchIcon'
-import Flex from '../../../components/flex/Flex';
-import { Input, InputOwnProps } from '../../../components/input/Input'
-import Box from '../../../components/box';
-import Button from '../../../components/button';
-import { Control, useWatch } from 'react-hook-form';
+import React from "react";
+import SearchIcon from "../../../icons/SearchIcon";
+import Flex from "../../../components/flex/Flex";
+import { Input, InputOwnProps } from "../../../components/input/Input";
+import Box from "../../../components/box";
+import Button from "../../../components/button";
+import { Control, useWatch } from "react-hook-form";
 
 type SearchInputProps = InputOwnProps & {
   clearClientState: () => void
@@ -23,36 +23,36 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return (
     <Flex css={{
-      position: 'relative',
-      alignItems: 'center',
-      gap: '0.5rem',
-      minWidth: '11rem',
-      '@sm': {
-        minWidth: '16rem',
+      position: "relative",
+      alignItems: "center",
+      gap: "0.5rem",
+      minWidth: "11rem",
+      "@sm": {
+        minWidth: "16rem",
       }
     }}>
       <Box css={{
-        position: 'absolute',
-        left: '0.75rem'
+        position: "absolute",
+        left: "0.75rem"
       }} >
         <SearchIcon />
       </Box>
       <Input
         size="large"
-        type={'text'}
-        role={'search'}
+        type={"text"}
+        role={"search"}
         validation={props.validation}
         placeholder={props.placeholder}
       />
       {search.length > 0 && <Flex css={{
-        position: 'absolute',
-        right: '0.5rem',
-        alignItems: 'center',
+        position: "absolute",
+        right: "0.5rem",
+        alignItems: "center",
         top: "50%",
         transform: "translateY(-50%)",
-        '& svg': {
-          cursor: 'pointer',
-          color: '$asphalt',
+        "& svg": {
+          cursor: "pointer",
+          color: "$asphalt",
         }
       }} >
         <Button
@@ -61,9 +61,9 @@ export const SearchInput = (props: SearchInputProps) => {
           size="compact"
           onClick={() => props.clearClientState()}
           css={{
-            display: 'inherit',
-            '@sm': {
-              display: 'none',
+            display: "inherit",
+            "@sm": {
+              display: "none",
             }
           }}
         >X</Button>
@@ -73,9 +73,9 @@ export const SearchInput = (props: SearchInputProps) => {
           size="compact"
           onClick={() => props.clearClientState()}
           css={{
-            display: 'none',
-            '@sm': {
-              display: 'inherit',
+            display: "none",
+            "@sm": {
+              display: "inherit",
             }
           }}
         >Clear</Button>

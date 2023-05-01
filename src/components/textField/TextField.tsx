@@ -1,16 +1,16 @@
-import React from 'react';
-import { styled, CSS, VariantProps } from '../../theme';
-import Input from '../input';
-import Grid from '../grid'
-import Flex from '../flex/Flex';
-import { Text } from '../text/Text'
-import { ErrorOption } from 'react-hook-form';
+import React from "react";
+import { styled, CSS, VariantProps } from "../../theme";
+import Input from "../input";
+import Grid from "../grid";
+import Flex from "../flex/Flex";
+import { Text } from "../text/Text";
+import { ErrorOption } from "react-hook-form";
 
 const Wrapper = styled(Grid, {
-  gridTemplateAreas: '"labelText" "input" "error"',
-  gap: '0.25rem',
-  alignItems: 'start',
-})
+  gridTemplateAreas: "\"labelText\" \"input\" \"error\"",
+  gap: "0.25rem",
+  alignItems: "start",
+});
 
 type TextFieldCSSProp = { css?: CSS };
 type TextFieldVariants = VariantProps<typeof Wrapper> &
@@ -21,7 +21,7 @@ type TextFieldVariants = VariantProps<typeof Wrapper> &
   value?: string,
   placeholder?: string,
   type?: string,
-  validation?: any
+  validation?: unknown,
   name: string
 };
 type TextFieldOwnProps = TextFieldCSSProp & TextFieldVariants;
@@ -35,25 +35,25 @@ export const TextField = React.forwardRef<
     <Wrapper css={props.css} ref={forwardedRef}>
       {props.labelText &&
         <Text variant="body-default"
-          css={{ gridArea: 'labelText', marginBottom: '2px', textAlign: 'left'}}>
+          css={{ gridArea: "labelText", marginBottom: "2px", textAlign: "left"}}>
           {props.labelText}
         </Text>}
 
       <Flex direction="column" css={{
-        position: 'relative',
-        gridArea: 'input',
+        position: "relative",
+        gridArea: "input",
       }}>
         <Input
           value={props.value}
           validation={props.validation}
           placeholder={props.placeholder}
-          type={props.type || 'text'}
-          css={{ marginBottom: '2px' }}
+          type={props.type || "text"}
+          css={{ marginBottom: "2px" }}
         />
         {props.error &&
           <Text
             variant="functional-error"
-            css={{ marginBottom: '2px', textAlign: 'left'}}
+            css={{ marginBottom: "2px", textAlign: "left"}}
           >
             {props?.error?.message}
           </Text>}
@@ -62,6 +62,8 @@ export const TextField = React.forwardRef<
     </Wrapper>
   );
 });
+
+TextField.displayName = "TextField";
 
 TextField.toString = () => `.${Wrapper.className}`;
 

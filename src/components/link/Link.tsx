@@ -1,20 +1,20 @@
-import { styled } from '../../theme';
+import { styled } from "../../theme";
 
-const Link = styled('a', {
-  textDecoration: 'none',
-  lineHeight: '1',
-  whiteSpace: 'nowrap',
-  ':hover': {
-    textDecoration: 'none',
+const Link = styled("a", {
+  textDecoration: "none",
+  lineHeight: "1",
+  whiteSpace: "nowrap",
+  ":hover": {
+    textDecoration: "none",
   },
   variants: {
     decoration: {
       underline: {
       },
       none: {
-        textDecoration: 'none',
-        ':hover': {
-          borderBottom: 'none',
+        textDecoration: "none",
+        ":hover": {
+          borderBottom: "none",
         },
       },
     },

@@ -1,23 +1,23 @@
-import React from 'react';
-import { styled, CSS, VariantProps } from '../../theme';
+import React from "react";
+import { styled, CSS, VariantProps } from "../../theme";
 
-const DEFAULT_TAG = 'input';
+const DEFAULT_TAG = "input";
 
 const StyledInput = styled(DEFAULT_TAG, {
-  appearance: 'none',
-  borderWidth: '0',
-  boxSizing: 'border-box',
-  fontFamily: '$primary',
-  margin: '0',
-  outline: 'none',
-  width: '100%',
+  appearance: "none",
+  borderWidth: "0",
+  boxSizing: "border-box",
+  fontFamily: "$primary",
+  margin: "0",
+  outline: "none",
+  width: "100%",
 
-  WebkitTapHighlightColor: 'rgba(0,0,0,0)',
-  '&::before': {
-    boxSizing: 'border-box',
+  WebkitTapHighlightColor: "rgba(0,0,0,0)",
+  "&::before": {
+    boxSizing: "border-box",
   },
-  '&::after': {
-    boxSizing: 'border-box',
+  "&::after": {
+    boxSizing: "border-box",
   },
 
   WebkitTextSizeAdjust: "100%",
@@ -25,36 +25,34 @@ const StyledInput = styled(DEFAULT_TAG, {
   overflow: "visible",
   verticalAlign: "baseline",
   fontSize: "$sm",
-  fontWeight: '$regular',
-  lineHeight: '$short',
+  fontWeight: "$regular",
+  lineHeight: "$short",
   color: "#2A333D",
   borderRadius: "$4px",
   border: "solid 1px #A0BCDB",
   backgroundColor: "white",
   opacity: 1,
 
-  '&:focus': {
+  "&:focus": {
     borderColor: "#A0BCDB",
-    boxShadow: 'rgb(49 130 206) 0px 0px 0px 1px',
-    '&:-webkit-autofill': {
-
-    },
+    boxShadow: "rgb(49 130 206) 0px 0px 0px 1px",
+    "&:-webkit-autofill": {},
   },
-  '&:active': {
+  "&:active": {
     borderColor: "#A0BCDB",
     boxShadow: "none",
   },
-  '&::placeholder': {
+  "&::placeholder": {
     fontSize: "$sm",
   },
-  '&:disabled': {
+  "&:disabled": {
     backgroundColor: "white",
     borderColor: "#A0BCDB",
     boxShadow: "none",
     color: "#bec3c5",
-    pointerEvents: 'none',
-    '&::placeholder': {
-      color: '#A3ACB8',
+    pointerEvents: "none",
+    "&::placeholder": {
+      color: "#A3ACB8",
     },
   },
 
@@ -69,41 +67,44 @@ const StyledInput = styled(DEFAULT_TAG, {
     },
     state: {
       invalid: {
-        border: "1px solid #c73b0d"
+        border: "1px solid #c73b0d",
       },
-    }
+    },
   },
   defaultVariants: {
-    size: 'small',
+    size: "small",
   },
 });
 
 type InputCSSProp = { css?: CSS };
-type InputVariants = Omit<VariantProps<typeof StyledInput>, 'size'>;
-export type InputOwnProps = InputCSSProp & InputVariants &
-{
-  size?: any,
-  value?: string
-  placeholder?: string
-  validation?: any
-  type?: string,
-  role?: string, 
-};
-
+type InputVariants = Omit<VariantProps<typeof StyledInput>, "size">;
+export type InputOwnProps<T extends object> = InputCSSProp &
+  InputVariants & {
+    size?: "small" | "large";
+    value?: string;
+    placeholder?: string;
+    validation?: T;
+    type?: string;
+    role?: string;
+  };
 
 export const Input = React.forwardRef<
-  React.ElementRef<typeof StyledInput>, InputOwnProps
+  React.ElementRef<typeof StyledInput>,
+  InputOwnProps<object>
 >((props, forwardedRef) => {
   return (
     <StyledInput
+      ref={forwardedRef}
       {...props.validation}
       size={props.size}
       role={props.role}
       value={props.value}
       placeholder={props.placeholder}
-      type={props.type || 'text'}
+      type={props.type || "text"}
     />
   );
 });
+
+Input.displayName = "Input";
 
 Input.toString = () => `.${StyledInput.className}`;

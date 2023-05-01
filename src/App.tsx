@@ -1,5 +1,5 @@
-import './App.css';
-import Dashboard from './features/home/Dashboard';
+import "./App.css";
+import Dashboard from "./features/home/Dashboard";
 
 function App() {
   return (

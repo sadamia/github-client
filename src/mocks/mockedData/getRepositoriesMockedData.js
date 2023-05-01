@@ -1115,4 +1115,4 @@ export const getRepositoriesMockedData = {
     },
     "__typename": "User"
   }
-}
+};

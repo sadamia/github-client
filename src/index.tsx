@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   ApolloProvider,
 } from "@apollo/client";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { client } from './client';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { client } from "./client";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);

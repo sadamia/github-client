@@ -1,3 +1,3 @@
-import { TextAreaField } from './TextAreaField';
+import { TextAreaField } from "./TextAreaField";
 
-export default TextAreaField
+export default TextAreaField;

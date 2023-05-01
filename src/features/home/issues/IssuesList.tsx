@@ -1,11 +1,7 @@
-import { useEffect } from "react";
-import { gql } from "@apollo/client";
 import { Text } from "../../../components/text/Text";
 import {
   IssueOrderField,
   OrderDirection,
-  useGetIssuesLazyQuery,
-  useGetRepositoryAndOwnerQuery,
 } from "../../../generated/graphql";
 import Button from "../../../components/button";
 import { NewIssueDialog } from "../newIssue/NewIssueDialog";

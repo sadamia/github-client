@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 const PlusIcon = () => (
   <svg
@@ -14,6 +14,6 @@ const PlusIcon = () => (
       fill="#0071F3"
     />
   </svg>
-)
+);
 
-export default PlusIcon
+export default PlusIcon;
