@@ -78,19 +78,19 @@ const StyledInput = styled(DEFAULT_TAG, {
 
 type InputCSSProp = { css?: CSS };
 type InputVariants = Omit<VariantProps<typeof StyledInput>, "size">;
-export type InputOwnProps<T extends object> = InputCSSProp &
+export type InputOwnProps = InputCSSProp &
   InputVariants & {
     size?: "small" | "large";
     value?: string;
     placeholder?: string;
-    validation?: T;
+    validation?: object;
     type?: string;
     role?: string;
   };
 
 export const Input = React.forwardRef<
   React.ElementRef<typeof StyledInput>,
-  InputOwnProps<object>
+  InputOwnProps
 >((props, forwardedRef) => {
   return (
     <StyledInput

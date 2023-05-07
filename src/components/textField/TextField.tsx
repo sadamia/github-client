@@ -21,7 +21,7 @@ type TextFieldVariants = VariantProps<typeof Wrapper> &
   value?: string,
   placeholder?: string,
   type?: string,
-  validation?: unknown,
+  validation?: object,
   name: string
 };
 type TextFieldOwnProps = TextFieldCSSProp & TextFieldVariants;

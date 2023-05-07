@@ -89,7 +89,7 @@ type TextAreaProps =
   TextAreaVariants & 
   { 
     css?: CSS 
-    validation?: unknown
+    validation?: object
     name?: string
     size?: string, 
     value?: string, 
