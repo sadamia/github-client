@@ -76,7 +76,7 @@ type AvatarOwnProps = AvatarPrimitiveProps &
   AvatarVariants & {
     css?: CSS;
     alt?: string;
-    src?: string;
+    src?: string | null;
   };
 
 export const Avatar = React.forwardRef<React.ElementRef<typeof StyledAvatar>, AvatarOwnProps>(
@@ -92,7 +92,7 @@ export const Avatar = React.forwardRef<React.ElementRef<typeof StyledAvatar>, Av
         }}
       >
         <StyledAvatar {...props} ref={forwardedRef} size={size}>
-          <StyledAvatarImage alt={alt} src={src} />
+          <StyledAvatarImage alt={alt} src={src ? src : undefined} />
         </StyledAvatar>
       </Flex>
     );

@@ -150,14 +150,6 @@ export const stitches = createStitches({
     br: (value: Stitches.PropertyValue<"borderRadius">) => ({
       borderRadius: value,
     }),
-    fullWidth: () => ({
-      width: "100vw",
-      position: "relative",
-      left: "50%",
-      right: "50%",
-      marginLeft: "-50vw",
-      marginRight: "-50vw"
-    }),
   }
 });
 

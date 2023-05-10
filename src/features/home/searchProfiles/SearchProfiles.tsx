@@ -21,7 +21,7 @@ const SearchUsers = ({ gridArea }: { gridArea: string }) => {
   const { data: queryClientResult } = useGetLoginQuery();
 
   useEffect(() => {
-    setValue("search", queryClientResult?.clientState?.login);
+    setValue("search", queryClientResult?.clientState?.login || "");
   }, [setValue, queryClientResult?.clientState?.login]);
 
   const search = useWatch({

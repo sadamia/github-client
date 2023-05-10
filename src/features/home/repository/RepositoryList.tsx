@@ -8,6 +8,8 @@ import { OptimisticContainer } from "../common/OptimisticContainer";
 import { LoadingContainer } from "../common/LoadingContainer";
 import { Badge } from "../common/Badge";
 import useRepositoryList from "./useRepositoryList";
+import { RepositoryEdge, GetRepositoriesQuery } from "../../../generated/graphql";
+
 
 export const RepositoryList = () => {
   const [queryClientResult, loading, data, error, showInfinite, fetchMore] =
@@ -74,9 +76,9 @@ export const RepositoryList = () => {
       infinitePagination={
         <>
           {showInfinite ? (
-            <InfinitePagination
+            <InfinitePagination<RepositoryEdge>
               hasNextPage={!!data?.user?.repositories?.pageInfo?.hasNextPage}
-              items={data?.user?.repositories?.edges}
+              items={data?.user?.repositories?.edges as RepositoryEdge[]}
               isNextPageLoading={loading}
               RowTemplate={RepositoryItem}
               loadNextPage={() => {
@@ -84,7 +86,7 @@ export const RepositoryList = () => {
                   variables: {
                     after: data?.user?.repositories?.pageInfo?.endCursor,
                     login:
-                      queryClientResult?.clientState?.selectedLogin.replace(
+                      queryClientResult?.clientState?.selectedLogin?.replace(
                         "@",
                         ""
                       ),

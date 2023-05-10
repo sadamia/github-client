@@ -13,7 +13,7 @@ const useIssuesList = () => {
 
   const showInfinite =
     called &&
-    queryClientResult?.clientState.login &&
+    queryClientResult?.clientState?.login &&
     data?.repository?.issues?.edges?.length;
 
   useEffect(() => {

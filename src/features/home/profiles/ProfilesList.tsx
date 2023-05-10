@@ -10,6 +10,7 @@ import Flex from "../../../components/flex/Flex";
 import { clientStateVar } from "../../../cache";
 import Box from "../../../components/box";
 import useProfilesList from "./useProfilesList";
+import { CSS } from "../../../theme";
 
 const OptimisticContainer = ({
   css,
@@ -117,7 +118,7 @@ const ProfilesList = () => {
     );
   }
 
-  if (!data || !queryClientResult?.clientState.login) {
+  if (!data || !queryClientResult?.clientState?.login) {
     return <EmptyProfilesList />;
   }
 

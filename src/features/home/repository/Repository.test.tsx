@@ -49,7 +49,7 @@ it("Repolistory list should display list for a given selected @github", async ()
     });
   });
   await waitFor(() => {
-    expect(screen.getByTestId("infinite-pagination").firstChild.firstChild.childNodes.length).toEqual(11);
+    expect(screen.getByTestId("infinite-pagination")?.firstChild?.firstChild?.childNodes.length).toEqual(11);
   });
 
 });

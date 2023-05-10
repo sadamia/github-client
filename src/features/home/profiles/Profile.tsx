@@ -32,7 +32,6 @@ export const Profile = ({ item }: { item?: Maybe<User> }) => {
       <Avatar
         alt="Client"
         src={item?.avatarUrl}
-        fallback="C"
         size="medium"
       />
       <Flex direction='column'

@@ -1,5 +1,6 @@
 import { Text } from "../../../components/text/Text";
 import {
+  IssueEdge,
   IssueOrderField,
   OrderDirection,
 } from "../../../generated/graphql";
@@ -82,7 +83,7 @@ export const IssuesList = () => {
           {showInfinite ? (
             <InfinitePagination
               hasNextPage={!!data?.repository?.issues?.pageInfo?.hasNextPage}
-              items={data?.repository?.issues?.edges}
+              items={data?.repository?.issues?.edges as IssueEdge[]}
               RowTemplate={IssueItem}
               isNextPageLoading={loading}
               loadNextPage={() => {

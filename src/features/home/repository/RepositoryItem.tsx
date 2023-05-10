@@ -7,8 +7,20 @@ import Grid from "../../../components/grid";
 import { Text } from "../../../components/text/Text";
 import { Maybe, RepositoryEdge } from "../../../generated/graphql";
 
-export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Maybe<RepositoryEdge>, style: CSSProperties }) => {
-  const mutate = (repository?: string, ownerLogin?: string, repositoryId?: string) => {
+export const RepositoryItem = <T,>({
+  index,
+  edge,
+  style,
+}: {
+  index: number;
+  edge: T extends RepositoryEdge ? T : RepositoryEdge;
+  style: CSSProperties;
+}) => {
+  const mutate = (
+    repository?: string,
+    ownerLogin?: string,
+    repositoryId?: string
+  ) => {
     clientStateVar({
       ...clientStateVar(),
       repository: repository,
@@ -26,32 +38,38 @@ export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Ma
       gap: "1rem",
       width: "100%",
       borderBottom: "1px solid #e2e8f0",
-    }
+    },
   };
 
   return (
     <div style={mergedStyle} key={index}>
-      <Grid css={{
-        alignItems: "center",
-        width: "100%",
-        gap: "1rem",
-        gridTemplateColumns: "minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)",
-        "@sm": {
-          gridTemplateColumns: "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)",
-        },
-        "@md": {
-          gridTemplateColumns: "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)",
-        },
-        "@lg": {
-          gridTemplateColumns: "minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)",
-        },
-        "& .profile-btn": {
-          display: "none",
+      <Grid
+        css={{
+          alignItems: "center",
+          width: "100%",
+          gap: "1rem",
+          gridTemplateColumns:
+            "minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(auto, 1fr)",
           "@sm": {
-            display: "flex",
+            gridTemplateColumns:
+              "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(auto, 1fr)",
           },
-        },
-      }}>
+          "@md": {
+            gridTemplateColumns:
+              "minmax(12rem, 1fr) minmax(4rem, 1fr) minmax(8rem, 1fr) minmax(auto, 1fr)",
+          },
+          "@lg": {
+            gridTemplateColumns:
+              "minmax(12rem, 1fr) minmax(8rem, 1fr) minmax(12rem, 1fr) minmax(auto, 1fr)",
+          },
+          "& .profile-btn": {
+            display: "none",
+            "@sm": {
+              display: "flex",
+            },
+          },
+        }}
+      >
         <Text
           variant="body-sm"
           css={{
@@ -72,16 +90,24 @@ export const RepositoryItem = ({ index, edge, style }: { index: number, edge: Ma
             ...ellipsis(80),
             "@sm": { display: "none" },
           }}
-          onClick={() => mutate(edge?.node?.name, edge?.node?.owner?.login, edge?.node?.id)}
+          onClick={() =>
+            mutate(edge?.node?.name, edge?.node?.owner?.login, edge?.node?.id)
+          }
         >
           {edge?.node?.name}
         </Button>
         <Text variant="body-sm">{edge?.node?.watchers.totalCount}</Text>
         <Text variant="body-sm">{edge?.node?.stargazers?.totalCount}</Text>
-        <Flex className="profile-btn" css={{ justifyContent: "end", paddingRight: "3px" }}>
+        <Flex
+          className="profile-btn"
+          css={{ justifyContent: "end", paddingRight: "3px" }}
+        >
           <Button
             variant="secondary"
-            onClick={() => mutate(edge?.node?.name, edge?.node?.owner?.login, edge?.node?.id)}>
+            onClick={() =>
+              mutate(edge?.node?.name, edge?.node?.owner?.login, edge?.node?.id)
+            }
+          >
             View Issues
           </Button>
         </Flex>

@@ -12,7 +12,7 @@ const useRepositoryList = () => {
   const { data: queryClientResult } = useGetSelectedLoginQuery();
   const showInfinite =
     called &&
-    queryClientResult?.clientState.selectedLogin &&
+    queryClientResult?.clientState?.selectedLogin &&
     data?.user?.repositories?.edges?.length;
 
   useEffect(() => {
